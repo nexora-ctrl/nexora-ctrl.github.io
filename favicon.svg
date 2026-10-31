@@ -1,0 +1,20 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="48%" stop-color="#2563eb" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+  </defs>
+  <!-- Rounded Squircle Box -->
+  <rect width="64" height="64" rx="16" fill="url(#blueGrad)" />
+  <!-- Subtle inner border highlight -->
+  <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="15.25" fill="none" stroke="rgba(255,255,255,0.28)" stroke-width="1.2" />
+  <!-- Letter N in pure white with soft Rubik-style rounded corners -->
+  <path d="M 18 16.5 L 25.5 16.5 L 38.5 37 L 38.5 16.5 L 46 16.5 L 46 47.5 L 38.5 47.5 L 25.5 27 L 25.5 47.5 L 18 47.5 Z"
+        fill="#ffffff"
+        stroke="#ffffff"
+        stroke-width="2.2"
+        stroke-linejoin="round"
+        stroke-linecap="round" />
+</svg>

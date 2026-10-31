@@ -1,60 +1,377 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NEXORA — Endless Possibilities</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      background: #080d1b;
-      color: white;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 24px;
-    }
-    main { max-width: 700px; }
-    .logo {
-      font-size: clamp(48px, 10vw, 88px);
-      font-weight: 900;
-      letter-spacing: 10px;
-      background: linear-gradient(90deg, #36bafa, #8175ff);
-      background-clip: text;
-      color: transparent;
-    }
-    p {
-      color: #aab6d0;
-      line-height: 1.8;
-    }
-    a {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 13px 25px;
-      border-radius: 9px;
-      color: white;
-      background: #315fe9;
-      text-decoration: none;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEXORA — One Name. Endless Possibilities.</title>
+
+  <meta name="description" content="NEXORA is an independent creative technology space where ideas become applications, tools, and experiments worth building." />
+  <meta name="theme-color" content="#05070f" />
+  <meta name="color-scheme" content="dark" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="NEXORA — One Name. Endless Possibilities." />
+  <meta property="og:description" content="A creative space for ideas, applications, software, tools, and experiments worth building." />
+  <meta property="og:url" content="https://nexora-ctrl.github.io" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="favicon.png" />
+
+  <!-- Font: Rubik -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <main>
-    <div class="logo">NEXORA</div>
-    <h2>One Name. Endless Possibilities.</h2>
-    <p>
-      A creative space for ideas, applications,
-      software, tools, experiments, and everything
-      worth building.
-    </p>
-    <a href="https://github.com/nexora-ctrl">
-      Explore My GitHub
+  <!-- Decorative background -->
+  <div class="bg" aria-hidden="true">
+    <div class="aurora a1"></div>
+    <div class="aurora a2"></div>
+    <div class="aurora a3"></div>
+    <div class="grid"></div>
+    <div class="grain"></div>
+    <div class="vignette"></div>
+  </div>
+  <div class="spotlight" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="site-header" id="header">
+    <a class="brand" href="#top" aria-label="NEXORA — back to top">
+      <img src="logo-white.png" alt="NEXORA" class="brand-logo" width="138" height="25" />
     </a>
-    <p>© 2026 NEXORA. Built with creativity.</p>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#create">Create</a>
+      <a href="#stack">Stack</a>
+      <a class="nav-cta" href="https://github.com/nexora-ctrl" target="_blank" rel="noopener">
+        <span>GitHub</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M17 7l-10 10" />
+          <path d="M8 7l9 0l0 9" />
+        </svg>
+      </a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <p class="badge reveal" style="--d: 0ms">
+        <span class="dot" aria-hidden="true"></span>
+        Independent Creative Technology
+      </p>
+
+      <h1 class="reveal" style="--d: 90ms">NEXORA</h1>
+
+      <p class="tagline reveal" style="--d: 170ms">
+        One Name. <span>Endless Possibilities.</span>
+      </p>
+
+      <p class="lead reveal" style="--d: 240ms">
+        A creative space for ideas, applications, software, tools,
+        experiments, and everything worth building.
+      </p>
+
+      <div class="actions reveal" style="--d: 320ms">
+        <a class="btn btn-primary" href="https://github.com/nexora-ctrl?tab=repositories" target="_blank" rel="noopener">
+          <span>Explore Repositories</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 12l14 0" />
+            <path d="M15 16l4 -4" />
+            <path d="M15 8l4 4" />
+          </svg>
+        </a>
+        <a class="btn btn-ghost" href="https://github.com/nexora-ctrl" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+          </svg>
+          <span>View Profile</span>
+        </a>
+      </div>
+
+      <div class="hero-meta reveal" style="--d: 400ms">
+        <span>Imagine</span>
+        <span class="sep" aria-hidden="true"></span>
+        <span>Build</span>
+        <span class="sep" aria-hidden="true"></span>
+        <span>Create</span>
+        <span class="sep" aria-hidden="true"></span>
+        <span>Repeat</span>
+      </div>
+
+      <div class="scroll-hint" aria-hidden="true"><i></i></div>
+    </section>
+
+    <!-- What I create -->
+    <section class="section wrap" id="create">
+      <p class="eyebrow reveal">What I Create</p>
+      <h2 class="reveal" style="--d: 70ms">
+        Ideas turned into <em>things that exist.</em>
+      </h2>
+      <p class="lead reveal" style="--d: 130ms">
+        Every project starts as a thought — then becomes something you can
+        open, use, and share. No limits on the category.
+      </p>
+
+      <div class="cards">
+        <article class="card reveal" style="--d: 0ms">
+          <div class="icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M3 5a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10z" />
+              <path d="M7 20h10" />
+              <path d="M9 16v4" />
+              <path d="M15 16v4" />
+            </svg>
+          </div>
+          <h3>Applications</h3>
+          <p>Desktop apps and software solutions built to solve real, everyday problems.</p>
+        </article>
+
+        <article class="card reveal" style="--d: 80ms">
+          <div class="icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M8 9l3 3l-3 3" />
+              <path d="M13 15l3 0" />
+              <path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
+            </svg>
+          </div>
+          <h3>Developer Tools</h3>
+          <p>Utilities that remove friction from daily work and make building feel faster.</p>
+        </article>
+
+        <article class="card reveal" style="--d: 160ms">
+          <div class="icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M3 12a9 9 0 1 0 18 0a9 9 0 0 0 -18 0" />
+              <path d="M3.6 9h16.8" />
+              <path d="M3.6 15h16.8" />
+              <path d="M11.5 3a17 17 0 0 0 0 18" />
+              <path d="M12.5 3a17 17 0 0 1 0 18" />
+            </svg>
+          </div>
+          <h3>Web Projects</h3>
+          <p>Websites and interactive experiences with attention to detail and feel.</p>
+        </article>
+
+        <article class="card reveal" style="--d: 240ms">
+          <div class="icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M6.141 20a2 2 0 0 0 1.859 1h8a2 2 0 0 0 1.859 -1l-3.859 -7v-6h1a1 1 0 0 0 0 -2h-6a1 1 0 0 0 0 2h1v6l-3.859 7z" />
+              <path d="M9 11l6 0" />
+            </svg>
+          </div>
+          <h3>Experiments</h3>
+          <p>New technologies, strange ideas, and quick prototypes — learning by making.</p>
+        </article>
+
+        <article class="card reveal" style="--d: 320ms">
+          <div class="icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z" />
+            </svg>
+          </div>
+          <h3>Creative Projects</h3>
+          <p>Anything interesting, useful, or simply worth building for the joy of it.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Philosophy -->
+    <div class="quote-block wrap">
+      <div class="quote-inner reveal">
+        <div class="qmark" aria-hidden="true">&ldquo;</div>
+        <blockquote>
+          Don't limit ideas to what already exists.
+          <span>Build what you imagine. Explore what is possible.</span>
+        </blockquote>
+        <cite>The NEXORA Philosophy</cite>
+      </div>
+    </div>
+
+    <!-- Stack -->
+    <section class="section wrap" id="stack">
+      <p class="eyebrow reveal">Toolbox</p>
+      <h2 class="reveal" style="--d: 70ms">
+        Technologies I <em>explore and use</em>
+      </h2>
+      <p class="lead reveal" style="--d: 130ms">
+        A shifting set of tools — chosen for the idea, not for the hype.
+      </p>
+
+      <div class="chips reveal" style="--d: 200ms">
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 5m0 1a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1z" /><path d="M9 9h6v6h-6z" /><path d="M3 10h2" /><path d="M3 14h2" /><path d="M10 3v2" /><path d="M14 3v2" /><path d="M21 10h-2" /><path d="M21 14h-2" /><path d="M14 21v-2" /><path d="M10 21v-2" /></svg>
+          Rust
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 17.5c.32 .32 .754 .5 1.2 .5h.55a1.25 1.25 0 0 0 1.25 -1.25v-.5a1.25 1.25 0 0 0 -1.25 -1.25h-.5a1.25 1.25 0 0 1 -1.25 -1.25v-.5c0 -.69 .56 -1.25 1.25 -1.25h.55c.446 0 .88 .18 1.2 .5" /><path d="M9 12h4" /><path d="M11 12v6" /><path d="M21 19a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14z" /></svg>
+          TypeScript
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 4l-2 14.5l-6 2l-6 -2l-2 -14.5z" /><path d="M7.5 8h3v8l-2 -1" /><path d="M16.5 8h-2.5a.5 .5 0 0 0 -.5 .5v3a.5 .5 0 0 0 .5 .5h1.4a.5 .5 0 0 1 .5 .5v3a.5 .5 0 0 1 -.5 .5h-2.5" /></svg>
+          JavaScript
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6.306 8.711c-1.257 3.551 -.75 6.423 .908 6.423c3.48 0 7.85 -7.423 9.47 -7.423c1.62 0 2.158 2.872 .902 6.423" /><path d="M17.694 8.711c1.257 3.551 .75 6.423 -.908 6.423c-3.48 0 -7.85 -7.423 -9.47 -7.423c-1.62 0 -2.158 2.872 -.902 6.423" /><path d="M12 5.423c3.48 0 7.85 7.423 9.47 7.423c1.62 0 2.158 -2.872 .902 -6.423c-1.257 -3.551 -.75 -6.423 -.908 -6.423c-3.48 0 -7.85 7.423 -9.47 7.423c-1.62 0 -2.158 -2.872 -.902 -6.423" /></svg>
+          React
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 4l-2 14.5l-6 2l-6 -2l-2 -14.5z" /><path d="M15.5 8h-7l.5 4h6l-.5 3.5l-2.5 .75l-2.5 -.75l-.1 -.5" /></svg>
+          HTML
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 4l-2 14.5l-6 2l-6 -2l-2 -14.5z" /><path d="M8.5 8h7l-4.5 4h4l-.5 3.5l-2.5 .75l-2.5 -.75l-.1 -.5" /></svg>
+          CSS
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M11.667 6c-2.49 0 -4.083 1.25 -4.78 3.75a6.002 6.002 0 0 1 2.447 -1.667c1.603 -.616 2.748 -.183 3.928 1.018c1.921 1.961 4.156 2.9 6.705 2.9c2.49 0 4.083 -1.25 4.78 -3.75a6.002 6.002 0 0 1 -2.447 1.667c-1.603 .616 -2.748 .183 -3.928 -1.018c-1.921 -1.961 -4.156 -2.9 -6.705 -2.9z" /><path d="M4.667 14c-2.49 0 -4.083 1.25 -4.78 3.75a6.002 6.002 0 0 1 2.447 -1.667c1.603 -.616 2.748 -.183 3.928 1.018c1.921 1.961 4.156 2.9 6.705 2.9c2.49 0 4.083 -1.25 4.78 -3.75a6.002 6.002 0 0 1 -2.447 1.667c-1.603 .616 -2.748 .183 -3.928 -1.018c-1.921 -1.961 -4.156 -2.9 -6.705 -2.9z" /></svg>
+          Tailwind CSS
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M6 8h.01" /><path d="M9 8h.01" /></svg>
+          Tauri
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 9v8.5a1.5 1.5 0 0 0 2.25 1.3l5 -3a1.5 1.5 0 0 0 .75 -1.3v-7a1.5 1.5 0 0 0 -.75 -1.3l-5 -3a1.5 1.5 0 0 0 -1.5 0l-5 3a1.5 1.5 0 0 0 -.75 1.3v7a1.5 1.5 0 0 0 .75 1.3l1.75 1.05" /><path d="M9 15l6 -3.5" /><path d="M15 9l-6 3.5" /></svg>
+          Node.js
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M16 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 8m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 15v-6" /><path d="M15 11l-2 -2" /><path d="M11 7l-1.85 -1.85a3.02 3.02 0 0 0 -4.3 0l-1.7 1.7a3.02 3.02 0 0 0 0 4.3l8.85 8.85a3.02 3.02 0 0 0 4.3 0l1.7 -1.7a3.02 3.02 0 0 0 0 -4.3l-8.85 -8.85" /></svg>
+          Git
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg>
+          GitHub
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16 3l5 2l-7 16l-4 -4l-5 4l-2 -2l4 -5l-4 -5l2 -2l5 4z" /></svg>
+          VS Code
+        </span>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta wrap">
+      <div class="cta-inner reveal">
+        <h2>Everything lives on GitHub.</h2>
+        <p>Projects, experiments, and works in progress — all open, all evolving.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://github.com/nexora-ctrl?tab=repositories" target="_blank" rel="noopener">
+            <span>Explore Repositories</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M5 12l14 0" />
+              <path d="M15 16l4 -4" />
+              <path d="M15 8l4 4" />
+            </svg>
+          </a>
+          <a class="btn btn-ghost" href="https://github.com/nexora-ctrl" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+            </svg>
+            <span>@nexora-ctrl</span>
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span class="left">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true" style="color: var(--cyan);"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z" /></svg>
+        NEXORA
+      </span>
+      <div class="footer-links">
+        <a href="https://github.com/nexora-ctrl" target="_blank" rel="noopener">GitHub</a>
+        <a href="#create">Create</a>
+        <a href="#stack">Stack</a>
+      </div>
+      <span>&copy; 2026 NEXORA &middot; Built with curiosity</span>
+    </div>
+  </footer>
+
+  <noscript>
+    <style>.reveal { opacity: 1; transform: none; }</style>
+  </noscript>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      /* --- Header state on scroll --- */
+      var header = document.getElementById("header");
+      var onScroll = function () {
+        if (window.scrollY > 24) header.classList.add("scrolled");
+        else header.classList.remove("scrolled");
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      /* --- Reveal on scroll --- */
+      var items = document.querySelectorAll(".reveal");
+      if (reduceMotion || !("IntersectionObserver" in window)) {
+        items.forEach(function (el) { el.classList.add("in"); });
+      } else {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in");
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+        items.forEach(function (el) { io.observe(el); });
+      }
+
+      /* --- Cursor spotlight (desktop only) --- */
+      if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+        var root = document.documentElement;
+        var mx = 0, my = 0, queued = false;
+
+        var paint = function () {
+          root.style.setProperty("--mx", mx + "px");
+          root.style.setProperty("--my", my + "px");
+          queued = false;
+        };
+
+        window.addEventListener("pointermove", function (e) {
+          mx = e.clientX;
+          my = e.clientY;
+          if (!queued) {
+            queued = true;
+            window.requestAnimationFrame(paint);
+          }
+        }, { passive: true });
+      }
+
+      /* --- Card glow follows pointer --- */
+      if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+        document.querySelectorAll(".card").forEach(function (card) {
+          card.addEventListener("pointermove", function (e) {
+            var r = card.getBoundingClientRect();
+            card.style.setProperty("--cx", (e.clientX - r.left) + "px");
+            card.style.setProperty("--cy", (e.clientY - r.top) + "px");
+          });
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
