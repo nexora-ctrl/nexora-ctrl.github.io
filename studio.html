@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NEXORA Studio — Lightweight Studio Presentation & Screen Recording Suite for Windows</title>
+
+  <meta name="description" content="NEXORA Studio adalah aplikasi desktop screen recording, virtual camera DirectShow, dan presentation studio native Windows berkinerja tinggi yang dibangun 100% menggunakan Rust dan egui." />
+  <meta name="theme-color" content="#05070f" />
+  <meta name="color-scheme" content="dark" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="NEXORA Studio — Native Windows Presentation & Virtual Camera Suite" />
+  <meta property="og:description" content="Aplikasi studio presentasi & virtual camera ringan bertenaga 100% Rust untuk Windows 10 & 11." />
+  <meta property="og:url" content="https://nexora-ctrl.github.io/studio.html" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="favicon.png" />
+
+  <!-- Font: Rubik -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="studio.css" />
+</head>
+
+<body>
+  <!-- Decorative background -->
+  <div class="bg" aria-hidden="true">
+    <div class="aurora a1"></div>
+    <div class="aurora a2"></div>
+    <div class="aurora a3"></div>
+    <div class="grid"></div>
+    <div class="grain"></div>
+    <div class="vignette"></div>
+  </div>
+  <div class="spotlight" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="site-header" id="header">
+    <a class="brand" href="index.html" aria-label="NEXORA — kembali ke beranda">
+      <img src="logo-white.png" alt="NEXORA" class="brand-logo" width="138" height="25" />
+    </a>
+    <nav class="nav" aria-label="Navigasi Proyek">
+      <a href="index.html">← Beranda</a>
+      <a href="#fitur">Fitur</a>
+      <a href="#shortcuts">Pintasan</a>
+      <a href="#instalasi">Instalasi</a>
+      <a class="nav-cta" href="https://github.com/nexora-ctrl/nexora-studio" target="_blank" rel="noopener">
+        <span>GitHub Repo</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M17 7l-10 10" />
+          <path d="M8 7l9 0l0 9" />
+        </svg>
+      </a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- Hero Section -->
+    <section class="studio-hero wrap">
+      <!-- App Icon -->
+      <div class="studio-app-icon reveal" style="--d: 0ms">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
+          <defs>
+            <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#38bdf8" />
+              <stop offset="100%" stop-color="#c4b5fd" />
+            </linearGradient>
+          </defs>
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z" />
+          <path d="M3 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" />
+        </svg>
+      </div>
+
+      <div class="badges-row reveal" style="--d: 80ms">
+        <span class="meta-pill"><span class="pill-dot"></span>v0.6.0 Stable</span>
+        <span class="meta-pill rust"><span class="pill-dot"></span>Rust 2021 Edition</span>
+        <span class="meta-pill win"><span class="pill-dot"></span>Windows 10 | 11</span>
+        <span class="meta-pill license"><span class="pill-dot"></span>MIT / Apache-2.0</span>
+      </div>
+
+      <h1 class="reveal" style="--d: 140ms">NEXORA Studio</h1>
+
+      <p class="tagline reveal" style="--d: 200ms">
+        Your Easy, Modern & Lightweight Studio Presentation &amp; Screen Recording Suite for Windows
+      </p>
+
+      <p class="lead reveal" style="--d: 260ms">
+        Aplikasi desktop native Windows berkinerja tinggi yang dibangun 100% menggunakan bahasa pemrograman <strong>Rust</strong> dan framework GUI <strong>egui</strong>. Menghadirkan antarmuka studio profesional ala OBS Studio namun jauh lebih ringkas, responsif, dan bebas beban berat (<em>zero bloat</em>).
+      </p>
+
+      <div class="actions reveal" style="--d: 320ms">
+        <a class="btn btn-primary" href="https://github.com/nexora-ctrl/nexora-studio/releases" target="_blank" rel="noopener">
+          <span>Unduh nexora-studio.exe</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+            <path d="M7 11l5 5l5 -5" />
+            <path d="M12 4l0 12" />
+          </svg>
+        </a>
+        <a class="btn btn-ghost" href="https://github.com/nexora-ctrl/nexora-studio" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+          </svg>
+          <span>Repository GitHub</span>
+        </a>
+      </div>
+
+      <!-- Realistic Studio Interface Mockup -->
+      <div class="mockup-container reveal" style="--d: 380ms">
+        <div class="mockup-titlebar">
+          <div class="mockup-dots">
+            <span></span><span></span><span></span>
+          </div>
+          <div>NEXORA Studio v0.6.0 — [1920x1080 @ 60 FPS] • DirectShow Virtual Camera Active</div>
+          <div style="font-size: 0.7rem; color: #10b981; font-weight: 600;">● SYSTEM READY</div>
+        </div>
+
+        <div class="mockup-viewports">
+          <!-- Preview Canvas -->
+          <div class="viewport-box">
+            <div class="viewport-tag green">PREVIEW (STANDBY)</div>
+            <div class="viewport-screen">
+              <div class="mockup-slide">
+                <h4>Slide 04: Arsitektur Rust</h4>
+                <p>Memperbarui layout layer & filter webcam...</p>
+              </div>
+              <div class="mockup-avatar-pip" title="Webcam Preview (Rounded Radius 16px)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" /></svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Transition Controls Center -->
+          <div class="mockup-transition-center">
+            <div class="btn-t-cut">CUT</div>
+            <div class="btn-t-fade">FADE (300ms)</div>
+          </div>
+
+          <!-- Program LIVE Canvas -->
+          <div class="viewport-box live">
+            <div class="viewport-tag red">PROGRAM (LIVE SIARAN)</div>
+            <div class="viewport-screen">
+              <div class="mockup-slide">
+                <h4>Slide 03: Fitur Unggulan</h4>
+                <p>Output Virtual Camera aktif ke Zoom &amp; Teams</p>
+              </div>
+              <div class="mockup-avatar-pip" style="border-color: #ef4444;" title="Webcam Active on LIVE">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" /></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Controls Dock -->
+        <div class="mockup-bottom-bar">
+          <div class="dock-panel">
+            <span class="dock-panel-title">Manajemen Scene</span>
+            <div class="dock-chips-list">
+              <span class="dock-chip-item active">● Scene Utama</span>
+              <span class="dock-chip-item">Presentasi PPT</span>
+              <span class="dock-chip-item">Layar Penuh</span>
+            </div>
+          </div>
+          <div class="dock-panel">
+            <span class="dock-panel-title">Daftar Sumber (Sources)</span>
+            <div class="dock-chips-list">
+              <span class="dock-chip-item active">Webcam HD (Radius 24px)</span>
+              <span class="dock-chip-item active">Display Monitor 1</span>
+              <span class="dock-chip-item">TimeSource (Neon Clock)</span>
+            </div>
+          </div>
+          <div class="dock-panel">
+            <span class="dock-panel-title">Audio Mixer (WASAPI)</span>
+            <div style="display: flex; flex-direction: column; gap: 4px;">
+              <span style="font-size: 0.68rem; color: #cbd5e1;">Desktop Loopback: -12.4 dB</span>
+              <div class="audio-bar-visual"><div class="audio-bar-fill"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section class="section wrap" id="fitur">
+      <p class="eyebrow reveal">Fitur Utama</p>
+      <h2 class="reveal" style="--d: 70ms">
+        Semua yang Anda butuhkan untuk <em>studio profesional</em>
+      </h2>
+      <p class="lead reveal" style="--d: 130ms">
+        Didesain secara presisi untuk pengajar, pembicara seminar, streamer, dan profesional yang membutuhkan performa tinggi tanpa kerumitan teknis.
+      </p>
+
+      <div class="feature-showcase-grid">
+        <!-- Feature 1 -->
+        <article class="feature-box reveal" style="--d: 0ms">
+          <div class="feature-box-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" />
+              <path d="M12 4v16" />
+            </svg>
+          </div>
+          <h3>Dual-Canvas Studio Mode</h3>
+          <p>Tampilan Preview &amp; Program (LIVE) dengan isolasi state penuh layaknya studio siaran TV profesional.</p>
+          <ul>
+            <li><strong>Viewport 16:9 Presisi:</strong> Rasio kanvas 1920×1080 (60 FPS) standar siaran internasional.</li>
+            <li><strong>Transisi Halus:</strong> Tombol transisi instan (<em>Cut</em>) maupun pudar (<em>Fade</em>) dengan durasi fleksibel.</li>
+            <li><strong>Bebas Sunting di Preview:</strong> Edit, rotasi, ubah layer tanpa merusak tampilan LIVE yang sedang ditonton pemirsa.</li>
+          </ul>
+        </article>
+
+        <!-- Feature 2 -->
+        <article class="feature-box reveal" style="--d: 80ms">
+          <div class="feature-box-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z" />
+              <path d="M3 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" />
+            </svg>
+          </div>
+          <h3>Native Virtual Camera (DirectShow)</h3>
+          <p>Kirim hasil olahan studio langsung sebagai kamera virtual ke seluruh aplikasi rapat &amp; konferensi.</p>
+          <ul>
+            <li><strong>Kompatibilitas Luas:</strong> Otomatis terdeteksi di Zoom, Microsoft Teams, Google Meet, Discord, Skype, dan WebRTC.</li>
+            <li><strong>Zero-Admin Driver:</strong> Pendaftaran driver kamera tingkat pengguna tanpa memerlukan hak Administrator Windows.</li>
+            <li><strong>Shared Memory Ring Buffer:</strong> Protokol NV12 1080p @ 30 FPS untuk latensi ultra rendah dan bebas lag.</li>
+          </ul>
+        </article>
+
+        <!-- Feature 3 -->
+        <article class="feature-box reveal" style="--d: 160ms">
+          <div class="feature-box-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M4 4h6v6h-6z" />
+              <path d="M14 4h6v6h-6z" />
+              <path d="M4 14h6v6h-6z" />
+              <path d="M14 14h6v6h-6z" />
+            </svg>
+          </div>
+          <h3>Beragam Sumber Layer (Rich Sources)</h3>
+          <p>Gabungkan berbagai materi presentasi multimedia dalam satu kanvas terpadu secara fleksibel.</p>
+          <ul>
+            <li><strong>Webcam Estetik:</strong> Sudut membulat (<em>Rounded Radius</em>) 0–160px dengan bingkai border warna siaran.</li>
+            <li><strong>PowerPoint COM Automation:</strong> Navigasi slide presentasi HD langsung dengan remote pointer.</li>
+            <li><strong>Display &amp; Window Capture:</strong> Tangkap layar monitor penuh atau jendela aplikasi Windows tertentu.</li>
+            <li><strong>TimeSource &amp; Jam:</strong> Jam Real-Time, Stopwatch, dan Countdown dengan efek Digital LED Neon Glow.</li>
+          </ul>
+        </article>
+
+        <!-- Feature 4 -->
+        <article class="feature-box reveal" style="--d: 240ms">
+          <div class="feature-box-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -.5 1.25a2.02 2.02 0 0 1 -1.5 .5" />
+              <path d="M8.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+              <path d="M12.5 7.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+              <path d="M16.5 10.5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+            </svg>
+          </div>
+          <h3>Filter &amp; Chroma Key Lanjutan</h3>
+          <p>Hapus background green screen dan manipulasi layer secara instan dengan alat presisi tinggi.</p>
+          <ul>
+            <li><strong>Chroma Key &amp; Color Key:</strong> Pengaturan <em>similarity</em>, <em>smoothness</em>, dan <em>spill reduction</em> yang bersih.</li>
+            <li><strong>Screen Color Picker:</strong> Pipet sampel warna RGB langsung dari area layar manapun dengan floating magnifier.</li>
+            <li><strong>Transform Menu:</strong> Rotasi 90°/180°, Flip Horizontal/Vertical, Snap Fit to Screen, dan Picture-in-Picture.</li>
+            <li><strong>Crop Instan:</strong> Potong tepi layer langsung di kanvas cukup dengan menahan <code>Alt + Drag</code>.</li>
+          </ul>
+        </article>
+
+        <!-- Feature 5 -->
+        <article class="feature-box reveal" style="--d: 320ms">
+          <div class="feature-box-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M15 8a5 5 0 0 1 0 8" />
+              <path d="M17.7 5a9 9 0 0 1 0 14" />
+              <path d="M6 15h-2a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h2l3.5 -4.5a.8 .8 0 0 1 1.5 .5v14a.8 .8 0 0 1 -1.5 .5l-3.5 -4.5" />
+            </svg>
+          </div>
+          <h3>WASAPI Audio Mixer Terpadu</h3>
+          <p>Kendali penuh suara sistem desktop loopback dan input mikrofon secara simultan tanpa latency.</p>
+          <ul>
+            <li><strong>Peak Level Meter Responsif:</strong> Indikator dB visual real-time dengan tanda kliping distorsi.</li>
+            <li><strong>Kontrol Mute &amp; Slider Gain:</strong> Sesuaikan desibel volume tiap channel audio dengan satu klik.</li>
+            <li><strong>Sinkronisasi Video:</strong> Playback audio video otomatis tersinkron saat beralih ke Program LIVE.</li>
+          </ul>
+        </article>
+
+        <!-- Feature 6 -->
+        <article class="feature-box reveal" style="--d: 400ms">
+          <div class="feature-box-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M3 5a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10z" />
+              <path d="M7 20h10" />
+              <path d="M9 16v4" />
+              <path d="M15 16v4" />
+            </svg>
+          </div>
+          <h3>Fullscreen Projector &amp; Auto Updater</h3>
+          <p>Dukungan presentasi proyektor panggung dan pembaruan aplikasi otomatis yang praktis.</p>
+          <ul>
+            <li><strong>Projector Layar Kedua:</strong> Lempar kanvas ke proyektor eksternal secara instan (keluar cukup tekan <code>Esc</code>).</li>
+            <li><strong>Auto Updater Terintegrasi:</strong> Mendeteksi rilis rilis terbaru GitHub dan update mandiri tanpa install ulang.</li>
+            <li><strong>Manajemen Scene Thumbnail:</strong> Tampilan Scene dalam mode Grid 16:9 real-time yang memanjakan mata.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Keyboard Shortcuts -->
+    <section class="section wrap" id="shortcuts">
+      <p class="eyebrow reveal">Pintasan Keyboard</p>
+      <h2 class="reveal" style="--d: 70ms">
+        Bekerja lebih cepat dengan <em>Hotkeys Ringkas</em>
+      </h2>
+      <p class="lead reveal" style="--d: 130ms">
+        Seluruh pintasan penting dirancang ergonomis agar Anda dapat mengendalikan siaran tanpa kehilangan fokus.
+      </p>
+
+      <div class="shortcuts-table-wrapper reveal" style="--d: 200ms">
+        <table class="shortcuts-table">
+          <thead>
+            <tr>
+              <th style="width: 32%;">Pintasan Tombol</th>
+              <th>Aksi / Fungsi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><kbd>Ctrl</kbd> + <kbd>F</kbd></td>
+              <td><strong>Fit to Screen:</strong> Sesuaikan ukuran layer terpilih persis memenuhi kanvas dengan menjaga aspek rasio.</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl</kbd> + <kbd>S</kbd></td>
+              <td><strong>Stretch to Screen:</strong> Rentangkan layer terpilih hingga memenuhi seluruh sudut layar kanvas.</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl</kbd> + <kbd>D</kbd></td>
+              <td><strong>Center to Screen:</strong> Posisikan layer terpilih tepat di titik tengah kanvas studio.</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl</kbd> + <kbd>R</kbd></td>
+              <td><strong>Reset Transform:</strong> Kembalikan ukuran, rotasi, dan posisi layer ke nilai standar awal.</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl</kbd> + <kbd>C</kbd></td>
+              <td><strong>Copy Source:</strong> Salin layer beserta seluruh konfigurasi filter, border, dan ukurannya.</td>
+            </tr>
+            <tr>
+              <td><kbd>Ctrl</kbd> + <kbd>V</kbd></td>
+              <td><strong>Paste Source:</strong> Tempelkan konfigurasi layer yang disalin ke scene yang aktif saat ini.</td>
+            </tr>
+            <tr>
+              <td><kbd>Alt</kbd> + <kbd>Drag Edge</kbd></td>
+              <td><strong>Direct Crop:</strong> Potong tepi sisi layer secara langsung di area Preview kanvas.</td>
+            </tr>
+            <tr>
+              <td><kbd>Esc</kbd></td>
+              <td><strong>Escape:</strong> Tutup tampilan Fullscreen Projector atau batalkan operasi Color Picker.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section class="section wrap" id="instalasi">
+      <p class="eyebrow reveal">Panduan Penggunaan</p>
+      <h2 class="reveal" style="--d: 70ms">
+        Instalasi &amp; <em>Menjalankan Aplikasi</em>
+      </h2>
+
+      <div class="cards" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+        <!-- Option 1: Binary -->
+        <article class="card reveal" style="--d: 100ms">
+          <div class="icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
+          </div>
+          <h3>Cara 1: Binary Executable (Rekomendasi)</h3>
+          <p>Sangat mudah, portabel, dan langsung jalan tanpa perlu instalasi rumit:</p>
+          <ol style="margin: 12px 0 0; padding-left: 20px; color: var(--muted); font-size: 0.9rem; line-height: 1.8;">
+            <li>Buka tab <a href="https://github.com/nexora-ctrl/nexora-studio/releases" target="_blank" rel="noopener" style="color: var(--cyan); text-decoration: underline;">GitHub Releases</a> dan unduh file <code>nexora-studio.exe</code>.</li>
+            <li>Simpan file di folder pilihan Anda (misal Desktop atau Program Files).</li>
+            <li>Klik dua kali untuk menjalankan langsung!</li>
+          </ol>
+        </article>
+
+        <!-- Option 2: Build from Source -->
+        <article class="card reveal" style="--d: 180ms">
+          <div class="icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 9l3 3l-3 3" /><path d="M13 15l3 0" /><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /></svg>
+          </div>
+          <h3>Cara 2: Kompilasi dari Source Code</h3>
+          <p>Jika Anda seorang developer Rust dan ingin mengkompilasi sendiri:</p>
+          
+          <div class="code-block">
+            <div class="code-header">
+              <span>PowerShell</span>
+              <span>Cargo Toolchain</span>
+            </div>
+            <pre class="code-body"><span class="comment"># 1. Clone repository</span>
+<span class="cmd">git clone</span> https://github.com/nexora-ctrl/nexora-studio.git
+<span class="cmd">cd</span> nexora-studio
+
+<span class="comment"># 2. Build rilis optimal</span>
+<span class="cmd">cargo build</span> --release</pre>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Tech Architecture Section -->
+    <section class="section wrap" id="arsitektur">
+      <p class="eyebrow reveal">Teknologi</p>
+      <h2 class="reveal" style="--d: 70ms">
+        Dibangun di atas <em>pondasi performa tinggi</em>
+      </h2>
+      <p class="lead reveal" style="--d: 130ms">
+        Kombinasi teknologi native tanpa runtime berat untuk menjamin efisiensi memori dan CPU minimal saat siaran langsung.
+      </p>
+
+      <div class="chips reveal" style="--d: 200ms">
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 5m0 1a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1z" /><path d="M9 9h6v6h-6z" /><path d="M3 10h2" /><path d="M3 14h2" /><path d="M10 3v2" /><path d="M14 3v2" /><path d="M21 10h-2" /><path d="M21 14h-2" /><path d="M14 21v-2" /><path d="M10 21v-2" /></svg>
+          Rust (2021 Edition)
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M6 8h.01" /><path d="M9 8h.01" /></svg>
+          egui &amp; eframe 0.31
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10z" /><path d="M7 20h10" /><path d="M9 16v4" /><path d="M15 16v4" /></svg>
+          DirectShow Virtual Camera
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 8a5 5 0 0 1 0 8" /><path d="M17.7 5a9 9 0 0 1 0 14" /><path d="M6 15h-2a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h2l3.5 -4.5a.8 .8 0 0 1 1.5 .5v14a.8 .8 0 0 1 -1.5 .5l-3.5 -4.5" /></svg>
+          WASAPI Loopback Audio
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg>
+          Tabler Icons
+        </span>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta wrap">
+      <div class="cta-inner reveal">
+        <h2>Siap untuk presentasi tanpa batas?</h2>
+        <p>Unduh rilis v0.6.0 gratis sekarang juga dan nikmati pengalaman studio native yang ringan di Windows Anda.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://github.com/nexora-ctrl/nexora-studio/releases" target="_blank" rel="noopener">
+            <span>Download NEXORA Studio (.exe)</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+              <path d="M7 11l5 5l5 -5" />
+              <path d="M12 4l0 12" />
+            </svg>
+          </a>
+          <a class="btn btn-ghost" href="https://github.com/nexora-ctrl/nexora-studio" target="_blank" rel="noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+            </svg>
+            <span>Beri Bintang di GitHub</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span class="left">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true" style="color: var(--cyan);"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z" /></svg>
+        NEXORA Studio
+      </span>
+      <div class="footer-links">
+        <a href="index.html">Beranda</a>
+        <a href="https://github.com/nexora-ctrl/nexora-studio" target="_blank" rel="noopener">GitHub</a>
+        <a href="#top">Kembali ke Atas ↑</a>
+      </div>
+      <span>&copy; 2026 NEXORA Studio &middot; Built with Rust &amp; Dedication</span>
+    </div>
+  </footer>
+
+  <noscript>
+    <style>.reveal { opacity: 1; transform: none; }</style>
+  </noscript>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      /* Header state on scroll */
+      var header = document.getElementById("header");
+      var onScroll = function () {
+        if (window.scrollY > 24) header.classList.add("scrolled");
+        else header.classList.remove("scrolled");
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      /* Reveal on scroll */
+      var items = document.querySelectorAll(".reveal");
+      if (reduceMotion || !("IntersectionObserver" in window)) {
+        items.forEach(function (el) { el.classList.add("in"); });
+      } else {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in");
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+        items.forEach(function (el) { io.observe(el); });
+      }
+
+      /* Cursor spotlight (desktop only) */
+      if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+        var root = document.documentElement;
+        var mx = 0, my = 0, queued = false;
+
+        var paint = function () {
+          root.style.setProperty("--mx", mx + "px");
+          root.style.setProperty("--my", my + "px");
+          queued = false;
+        };
+
+        window.addEventListener("pointermove", function (e) {
+          mx = e.clientX;
+          my = e.clientY;
+          if (!queued) {
+            queued = true;
+            window.requestAnimationFrame(paint);
+          }
+        }, { passive: true });
+      }
+    })();
+  </script>
+</body>
+</html>
+
