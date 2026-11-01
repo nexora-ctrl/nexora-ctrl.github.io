@@ -1,13 +1,13 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NEXORA — One Name. Endless Possibilities.</title>
 
   <meta name="description" content="NEXORA is an independent creative technology space where ideas become applications, tools, and experiments worth building." />
-  <meta name="theme-color" content="#05070f" />
-  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#060814" id="themeColor" />
+  <meta name="color-scheme" content="dark light" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -25,10 +25,31 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
 
+  <!-- Theme bootstrap: set before first paint to avoid flashing -->
+  <script>
+    (function () {
+      var theme = "dark";
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var forced = params.get("theme");
+        var stored = localStorage.getItem("nexora-theme");
+        theme = (forced === "light" || forced === "dark")
+          ? forced
+          : ((stored === "light" || stored === "dark")
+            ? stored
+            : (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"));
+      } catch (e) {}
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <!-- Reading / scroll progress -->
+  <div class="scroll-progress" aria-hidden="true"><span id="scrollBar"></span></div>
+
   <!-- Decorative background -->
   <div class="bg" aria-hidden="true">
     <div class="aurora a1"></div>
@@ -45,8 +66,9 @@
     <a class="brand" href="#top" aria-label="NEXORA — back to top">
       <img src="logo-white.png" alt="NEXORA" class="brand-logo" width="138" height="25" />
     </a>
-    <nav class="nav" aria-label="Main navigation">
-      <a href="studio.html" style="color: var(--cyan); font-weight: 500;">NEXORA Studio</a>
+
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="studio.html" class="nav-studio">NEXORA Studio</a>
       <a href="#create">Create</a>
       <a href="#stack">Stack</a>
       <a class="nav-cta" href="https://github.com/nexora-ctrl" target="_blank" rel="noopener">
@@ -58,11 +80,33 @@
         </svg>
       </a>
     </nav>
+
+    <div class="header-tools">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode" aria-pressed="false" title="Ganti tema">
+        <svg class="tt-icon tt-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+        </svg>
+        <svg class="tt-icon tt-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z" />
+        </svg>
+      </button>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Buka menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </header>
 
   <main id="top">
     <!-- Hero -->
     <section class="hero">
+      <div class="hero-art" aria-hidden="true">
+        <span class="ring r1"></span>
+        <span class="ring r2"></span>
+        <span class="ring r3"></span>
+      </div>
+
       <p class="badge reveal" style="--d: 0ms">
         <span class="dot" aria-hidden="true"></span>
         Independent Creative Technology
@@ -191,26 +235,40 @@
     </section>
 
     <!-- Featured Project: NEXORA Studio -->
-    <section class="section wrap" id="projects" style="padding-top: 20px; padding-bottom: 40px;">
-      <div class="cta-inner reveal" style="text-align: left; padding: clamp(32px, 5vw, 54px);">
-        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px;">
-          <div style="max-width: 620px;">
-            <p class="badge" style="margin-bottom: 16px;">
-              <span class="dot" aria-hidden="true"></span>
-              Featured Project
-            </p>
-            <h2 style="margin: 0 0 12px; font-size: clamp(1.8rem, 4.2vw, 2.7rem);">NEXORA Studio</h2>
-            <p style="margin: 0; font-size: 0.98rem; color: var(--muted); line-height: 1.7;">
-              Aplikasi desktop <em>screen recording</em>, siaran langsung <em>virtual camera DirectShow</em>, dan <em>presentation studio</em> native Windows berkinerja tinggi yang dibangun 100% menggunakan <strong>Rust</strong> dan framework GUI <strong>egui</strong>.
-            </p>
-            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;">
-              <span class="chip" style="margin: 0;">Rust 2021</span>
-              <span class="chip" style="margin: 0;">egui / eframe</span>
-              <span class="chip" style="margin: 0;">DirectShow Virtual Camera</span>
-              <span class="chip" style="margin: 0;">v0.6.0 Stable</span>
-            </div>
+    <section class="section wrap" id="projects" style="padding-block: 8px clamp(40px, 6vw, 80px);">
+      <div class="feature reveal">
+        <div class="feature-body">
+          <p class="badge" style="margin-bottom: 0;">
+            <span class="dot" aria-hidden="true"></span>
+            Featured Project
+          </p>
+          <h2>NEXORA Studio</h2>
+          <p class="feature-desc">
+            Aplikasi desktop <em>screen recording</em>, siaran langsung <em>virtual camera DirectShow</em>,
+            dan <em>presentation studio</em> native Windows berkinerja tinggi yang dibangun 100%
+            menggunakan <strong>Rust</strong> dan framework GUI <strong>egui</strong>.
+          </p>
+
+          <div class="chips">
+            <span class="chip">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 4l-2 14.5l-6 2l-6 -2l-2 -14.5z" /><path d="M7.5 8h3v8l-2 -1" /></svg>
+              Rust 2021
+            </span>
+            <span class="chip">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M9 9h6v6h-6z" /></svg>
+              egui / eframe
+            </span>
+            <span class="chip">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16 3l5 2l-7 16l-4 -4l-5 4l-2 -2l4 -5l-4 -5l2 -2l5 4z" /></svg>
+              DirectShow
+            </span>
+            <span class="chip">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3a9 9 0 1 0 9 9" /><path d="M12 7a5 5 0 1 0 5 5" /><path d="M12 11a1 1 0 1 0 1 1" /></svg>
+              v0.6.0 Stable
+            </span>
           </div>
-          <div style="display: flex; flex-direction: column; gap: 12px; min-width: 230px;">
+
+          <div class="feature-actions">
             <a class="btn btn-primary" href="studio.html">
               <span>Buka NEXORA Studio</span>
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true">
@@ -231,6 +289,38 @@
             </a>
           </div>
         </div>
+
+        <aside class="feature-panel" aria-hidden="true">
+          <div class="mock">
+            <div class="mock-bar">
+              <span class="d"></span><span class="d"></span><span class="d"></span>
+              <span class="mock-title">NEXORA Studio — v0.6.0</span>
+            </div>
+            <div class="mock-body">
+              <div class="mock-row">
+                <span class="mock-ico"></span>
+                <span>Screen Recorder</span>
+                <span class="mock-state live">REC</span>
+              </div>
+              <div class="mock-row">
+                <span class="mock-ico"></span>
+                <span>Virtual Camera</span>
+                <span class="mock-state on">Active</span>
+              </div>
+              <div class="mock-row">
+                <span class="mock-ico"></span>
+                <span>Presentation Studio</span>
+                <span class="mock-state">Ready</span>
+              </div>
+              <div class="mock-meter"><i></i></div>
+              <div class="mock-foot">
+                <span>1080p60</span>
+                <span>HW Encode</span>
+                <span>DirectShow</span>
+              </div>
+            </div>
+          </div>
+        </aside>
       </div>
     </section>
 
@@ -270,7 +360,7 @@
           JavaScript
         </span>
         <span class="chip">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6.306 8.711c-1.257 3.551 -.75 6.423 .908 6.423c3.48 0 7.85 -7.423 9.47 -7.423c1.62 0 2.158 2.872 .902 6.423" /><path d="M17.694 8.711c1.257 3.551 .75 6.423 -.908 6.423c-3.48 0 -7.85 -7.423 -9.47 -7.423c-1.62 0 -2.158 2.872 -.902 6.423" /><path d="M12 5.423c3.48 0 7.85 7.423 9.47 7.423c1.62 0 2.158 -2.872 .902 -6.423c-1.257 -3.551 -.75 -6.423 -.908 -6.423c-3.48 0 -7.85 7.423 -9.47 7.423c-1.62 0 -2.158 -2.872 -.902 -6.423" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6.306 8.711c-1.257 3.551 -.75 6.423 .908 6.423c3.48 0 7.85 -7.423 9.47 -7.423c1.62 0 2.158 2.872 .902 6.423" /><path d="M17.694 8.711c1.257 3.551 .75 6.423 -.908 6.423c-3.48 0 -7.85 -7.423 -9.47 -7.423c-1.62 0 -2.158 2.872 -.902 6.423" /><path d="M12 5.423c3.48 0 7.85 7.423 9.47 7.423c1.62 0 2.158 -2.872 .902 -6.423c-1.257 -3.551 -.75 -6.423 -.908 -6.423c-3.48 0 -7.85 7.423 -9.47 7.423c-1.62 0 -2.158 2.872 -.902 6.423" /></svg>
           React
         </span>
         <span class="chip">
@@ -294,7 +384,7 @@
           Node.js
         </span>
         <span class="chip">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M16 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 8m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 15v-6" /><path d="M15 11l-2 -2" /><path d="M11 7l-1.85 -1.85a3.02 3.02 0 0 0 -4.3 0l-1.7 1.7a3.02 3.02 0 0 0 0 4.3l8.85 8.85a3.02 3.02 0 0 0 4.3 0l1.7 -1.7a3.02 3.02 0 0 0 0 -4.3l-8.85 -8.85" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 8m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 16m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 15v-6" /><path d="M15 11l-2 -2" /><path d="M11 7l-1.85 -1.85a3.02 3.02 0 0 0 -4.3 0l-1.7 1.7a3.02 3.02 0 0 0 0 4.3l8.85 8.85a3.02 3.02 0 0 0 4.3 0l1.7 -1.7a3.02 3.02 0 0 0 0 -4.3l-8.85 -8.85" /></svg>
           Git
         </span>
         <span class="chip">
@@ -342,12 +432,19 @@
         NEXORA
       </span>
       <div class="footer-links">
-        <a href="studio.html" style="color: var(--cyan);">NEXORA Studio ✨</a>
+        <a href="studio.html" style="color: var(--cyan);">NEXORA Studio</a>
         <a href="https://github.com/nexora-ctrl" target="_blank" rel="noopener">GitHub</a>
         <a href="#create">Create</a>
         <a href="#stack">Stack</a>
       </div>
       <span>&copy; 2026 NEXORA &middot; Built with curiosity</span>
+      <a class="to-top" href="#top" aria-label="Back to top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M12 19V5" />
+          <path d="M5 12l7 -7l7 7" />
+        </svg>
+      </a>
     </div>
   </footer>
 
@@ -359,18 +456,145 @@
     (function () {
       "use strict";
 
+      var root = document.documentElement;
       var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-      /* --- Header state on scroll --- */
+      /* ============ THEME (light / dark) ============ */
+      var themeMeta = document.getElementById("themeColor");
+      var themeColors = { dark: "#060814", light: "#f3f5fc" };
+      var toggle = document.getElementById("themeToggle");
+
+      var stored = null;
+      try { stored = localStorage.getItem("nexora-theme"); } catch (e) {}
+      var explicit = (stored === "light" || stored === "dark");
+
+      /* ?theme=light|dark forces a theme for previewing without saving it */
+      var forced = null;
+      try {
+        var q = new URLSearchParams(window.location.search).get("theme");
+        if (q === "light" || q === "dark") forced = q;
+      } catch (e) {}
+
+      function applyTheme(theme, animate) {
+        root.setAttribute("data-theme", theme);
+
+        if (themeMeta) themeMeta.setAttribute("content", themeColors[theme] || themeColors.dark);
+
+        if (toggle) {
+          toggle.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
+          toggle.setAttribute(
+            "aria-label",
+            theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+          );
+          toggle.setAttribute(
+            "title",
+            theme === "dark" ? "Mode terang" : "Mode gelap"
+          );
+        }
+
+        if (!forced) {
+          try { localStorage.setItem("nexora-theme", theme); } catch (e) {}
+        }
+        if (animate && !reduceMotion) {
+          root.classList.add("theme-anim");
+          window.setTimeout(function () {
+            root.classList.remove("theme-anim");
+          }, 520);
+        }
+      }
+
+      /* sync UI on first load */
+      applyTheme(root.getAttribute("data-theme") || "dark", false);
+
+      if (toggle) {
+        toggle.addEventListener("click", function () {
+          explicit = true;
+          applyTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark", true);
+        });
+      }
+
+      /* follow the OS preference until the user picks a theme manually */
+      var scheme = window.matchMedia("(prefers-color-scheme: light)");
+      var onScheme = function (e) {
+        if (explicit) return;
+        applyTheme(e.matches ? "light" : "dark", true);
+      };
+      if (scheme.addEventListener) scheme.addEventListener("change", onScheme);
+      else if (scheme.addListener) scheme.addListener(onScheme);
+
+      /* ============ HEADER / SCROLL ============ */
       var header = document.getElementById("header");
+      var bar = document.getElementById("scrollBar");
+      var nav = document.getElementById("nav");
+      var menuBtn = document.getElementById("menuToggle");
+
       var onScroll = function () {
-        if (window.scrollY > 24) header.classList.add("scrolled");
-        else header.classList.remove("scrolled");
+        if (header) {
+          if (window.scrollY > 24) header.classList.add("scrolled");
+          else header.classList.remove("scrolled");
+        }
+        if (bar) {
+          var max = document.documentElement.scrollHeight - window.innerHeight;
+          bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + "%";
+        }
       };
       window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onScroll, { passive: true });
       onScroll();
 
-      /* --- Reveal on scroll --- */
+      /* ============ MOBILE MENU ============ */
+      if (menuBtn && nav) {
+        var closeMenu = function () {
+          nav.classList.remove("open");
+          menuBtn.setAttribute("aria-expanded", "false");
+          menuBtn.setAttribute("aria-label", "Buka menu");
+        };
+
+        menuBtn.addEventListener("click", function () {
+          var open = nav.classList.toggle("open");
+          menuBtn.setAttribute("aria-expanded", open ? "true" : "false");
+          menuBtn.setAttribute("aria-label", open ? "Tutup menu" : "Buka menu");
+        });
+
+        nav.querySelectorAll("a").forEach(function (a) {
+          a.addEventListener("click", closeMenu);
+        });
+
+        document.addEventListener("click", function (e) {
+          if (!nav.classList.contains("open")) return;
+          if (nav.contains(e.target) || menuBtn.contains(e.target)) return;
+          closeMenu();
+        });
+
+        window.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") closeMenu();
+        });
+      }
+
+      /* ============ ACTIVE NAV LINK ============ */
+      var navLinks = nav
+        ? Array.prototype.slice.call(nav.querySelectorAll('a[href^="#"]'))
+        : [];
+      var sections = navLinks
+        .map(function (a) {
+          var id = a.getAttribute("href").slice(1);
+          return id ? document.getElementById(id) : null;
+        })
+        .filter(Boolean);
+
+      if (sections.length && "IntersectionObserver" in window) {
+        var sectionObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            navLinks.forEach(function (a) {
+              a.classList.toggle("active", a.getAttribute("href") === "#" + entry.target.id);
+            });
+          });
+        }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+        sections.forEach(function (s) { sectionObserver.observe(s); });
+      }
+
+      /* ============ REVEAL ON SCROLL ============ */
       var items = document.querySelectorAll(".reveal");
       if (reduceMotion || !("IntersectionObserver" in window)) {
         items.forEach(function (el) { el.classList.add("in"); });
@@ -386,9 +610,8 @@
         items.forEach(function (el) { io.observe(el); });
       }
 
-      /* --- Cursor spotlight (desktop only) --- */
+      /* ============ CURSOR SPOTLIGHT (desktop only) ============ */
       if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
-        var root = document.documentElement;
         var mx = 0, my = 0, queued = false;
 
         var paint = function () {
@@ -407,7 +630,7 @@
         }, { passive: true });
       }
 
-      /* --- Card glow follows pointer --- */
+      /* ============ CARD GLOW FOLLOWS POINTER ============ */
       if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
         document.querySelectorAll(".card").forEach(function (card) {
           card.addEventListener("pointermove", function (e) {
