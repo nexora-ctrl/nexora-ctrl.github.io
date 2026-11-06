@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    NEXORA — Landing Page
    Theme system: dark / light via [data-theme] on <html>
    ============================================================ */
@@ -384,6 +384,9 @@ img { max-width: 100%; }
 
 .nav-studio { color: var(--cyan) !important; font-weight: 500; }
 .nav-studio::after { background: linear-gradient(90deg, var(--cyan), var(--violet)) !important; }
+
+.nav-finder { color: #38bdf8 !important; font-weight: 500; }
+.nav-finder::after { background: linear-gradient(90deg, #38bdf8, #10b981) !important; }
 
 .nav-cta {
   display: inline-flex;
@@ -927,6 +930,122 @@ img { max-width: 100%; }
   top: 0; left: 10%;
   width: 80%; height: 1px;
   background: linear-gradient(90deg, transparent, rgba(139, 125, 255, 0.8), transparent);
+}
+
+.feature + .feature {
+  margin-top: clamp(28px, 4vw, 48px);
+}
+
+.feature.feature-finder {
+  background:
+    radial-gradient(110% 130% at 0% 0%, rgba(56, 189, 248, 0.16), transparent 60%),
+    radial-gradient(110% 130% at 100% 100%, rgba(16, 185, 129, 0.12), transparent 62%),
+    var(--surface);
+}
+
+.feature.feature-finder::before {
+  background: linear-gradient(90deg, transparent, rgba(56, 189, 248, 0.8), transparent);
+}
+
+.badge-finder {
+  border-color: rgba(56, 189, 248, 0.35) !important;
+  color: #38bdf8 !important;
+}
+
+.badge-finder .dot {
+  background: #10b981 !important;
+  box-shadow: 0 0 10px #10b981 !important;
+}
+
+.finder-mock-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 13px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.06);
+  font-size: 0.82rem;
+  color: var(--ink-2);
+}
+
+.finder-mock-input svg {
+  flex: 0 0 auto;
+  color: #38bdf8;
+}
+
+.finder-mock-query {
+  font-family: inherit;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.finder-mock-time {
+  margin-left: auto;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.12);
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(16, 185, 129, 0.28);
+}
+
+.mock-badge-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 24px;
+  border-radius: 6px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  flex: 0 0 auto;
+}
+
+.mock-badge-tag.doc {
+  background: rgba(59, 130, 246, 0.18);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.35);
+}
+
+.mock-badge-tag.code {
+  background: rgba(249, 115, 22, 0.18);
+  color: #fb923c;
+  border: 1px solid rgba(249, 115, 22, 0.35);
+}
+
+.mock-badge-tag.img {
+  background: rgba(236, 72, 153, 0.18);
+  color: #f472b6;
+  border: 1px solid rgba(236, 72, 153, 0.35);
+}
+
+.finder-mock-file {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.finder-mock-file strong {
+  font-size: 0.8rem;
+  color: var(--ink);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.finder-mock-file small {
+  font-size: 0.68rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .feature-body { min-width: 0; }

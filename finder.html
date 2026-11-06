@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexora Finder — Pencarian Berkas &amp; Folder Instan Super Cepat untuk Windows</title>
+
+  <meta name="description" content="Nexora Finder adalah aplikasi desktop pencarian berkas dan folder super cepat untuk Windows berkinerja tinggi, bertenaga Rust, mesin indeks Tantivy (< 1 ms), dan antarmuka modern Tauri + React bergaya macOS Spotlight." />
+  <meta name="theme-color" content="#060814" id="themeColor" />
+  <meta name="color-scheme" content="dark light" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Nexora Finder — Instant File &amp; Folder Search for Windows" />
+  <meta property="og:description" content="Pencarian berkas &amp; folder instan berkecepatan tinggi (< 1 ms) bertenaga Rust, Tantivy, dan Tauri 2.0." />
+  <meta property="og:url" content="https://nexora-ctrl.github.io/finder.html" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="192x192" href="favicon.png" />
+
+  <!-- Font: Rubik -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
+
+  <!-- Theme bootstrap: set before first paint to avoid flashing -->
+  <script>
+    (function () {
+      var theme = "dark";
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var forced = params.get("theme");
+        var stored = localStorage.getItem("nexora-theme");
+        theme = (forced === "light" || forced === "dark")
+          ? forced
+          : ((stored === "light" || stored === "dark")
+            ? stored
+            : (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"));
+      } catch (e) {}
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="studio.css" />
+  <link rel="stylesheet" href="finder.css" />
+</head>
+
+<body>
+  <!-- Decorative background -->
+  <div class="bg" aria-hidden="true">
+    <div class="aurora a1"></div>
+    <div class="aurora a2"></div>
+    <div class="aurora a3"></div>
+    <div class="grid"></div>
+    <div class="grain"></div>
+    <div class="vignette"></div>
+  </div>
+  <div class="spotlight" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="site-header" id="header">
+    <a class="brand" href="index.html" aria-label="NEXORA — kembali ke beranda">
+      <img src="logo-white.png" alt="NEXORA" class="brand-logo" width="138" height="25" />
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Navigasi Proyek">
+      <a href="index.html">← Beranda</a>
+      <a href="studio.html">NEXORA Studio</a>
+      <a href="#fitur">Fitur</a>
+      <a href="#shortcuts">Pintasan</a>
+      <a href="#instalasi">Instalasi</a>
+      <a class="nav-cta" href="https://github.com/nexora-ctrl/nexora-finder" target="_blank" rel="noopener">
+        <span>GitHub Repo</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true">
+          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+          <path d="M17 7l-10 10" />
+          <path d="M8 7l9 0l0 9" />
+        </svg>
+      </a>
+    </nav>
+
+    <div class="header-tools">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode" aria-pressed="false" title="Ganti tema">
+        <svg class="tt-icon tt-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+        </svg>
+        <svg class="tt-icon tt-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z" />
+        </svg>
+      </button>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Buka menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero Section -->
+    <section class="finder-hero wrap">
+      <!-- App Icon -->
+      <div class="finder-app-icon reveal" style="--d: 0ms">
+        <img src="assets/finder-icon.png" alt="Nexora Finder Logo" width="104" height="104" />
+      </div>
+
+      <div class="badges-row reveal" style="--d: 80ms">
+        <span class="meta-pill"><span class="pill-dot"></span>Pencarian &lt; 1 ms</span>
+        <span class="meta-pill rust"><span class="pill-dot"></span>Rust + Tauri 2.0</span>
+        <span class="meta-pill" style="border-color: rgba(56, 189, 248, 0.4);"><span class="pill-dot" style="background:#38bdf8; box-shadow:0 0 8px #38bdf8;"></span>Tantivy Engine</span>
+        <span class="meta-pill win"><span class="pill-dot"></span>Windows 10 | 11</span>
+        <span class="meta-pill license"><span class="pill-dot"></span>MIT License</span>
+      </div>
+
+      <h1 class="reveal" style="--d: 140ms">Nexora Finder</h1>
+
+      <p class="tagline reveal" style="--d: 200ms">
+        Pencarian Berkas &amp; Folder Instan Super Cepat untuk Windows
+      </p>
+
+      <p class="lead reveal" style="--d: 260ms">
+        Dibangun dengan performa native <strong>Rust</strong>, mesin pencari teks penuh <strong>Tantivy</strong> yang terinspirasi dari Apache Lucene, serta antarmuka modern <strong>Tauri 2.0 + React 19</strong> bergaya macOS Spotlight. Mampu mencari jutaan berkas dalam hitungan milidetik tanpa membebani memori PC Anda.
+      </p>
+
+      <div class="actions reveal" style="--d: 320ms">
+        <a class="btn btn-primary" href="https://github.com/nexora-ctrl/nexora-finder" target="_blank" rel="noopener">
+          <span>Repository GitHub</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M5 12l14 0" />
+            <path d="M15 16l4 -4" />
+            <path d="M15 8l4 4" />
+          </svg>
+        </a>
+        <a class="btn btn-ghost" href="#fitur">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 5v14" />
+            <path d="M18 13l-6 6" />
+            <path d="M6 13l6 6" />
+          </svg>
+          <span>Pelajari Fitur Utama</span>
+        </a>
+      </div>
+
+      <!-- Spotlight Mockup Window -->
+      <div class="spotlight-mockup reveal" style="--d: 380ms">
+        <!-- Search bar -->
+        <div class="spotlight-searchbar">
+          <svg class="spotlight-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="10" cy="10" r="7" />
+            <path d="M21 21l-6 -6" />
+          </svg>
+          <div class="spotlight-input-visual">
+            <span>proyek-nexora</span>
+            <span class="spotlight-cursor"></span>
+          </div>
+          <div class="spotlight-drive-select">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2z" /><path d="M6 12h12" /></svg>
+            <span>Semua Drive (All)</span>
+          </div>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="spotlight-categories">
+          <span class="scat-chip active">Semua</span>
+          <span class="scat-chip">Folder</span>
+          <span class="scat-chip">Dokumen</span>
+          <span class="scat-chip">Gambar</span>
+          <span class="scat-chip">Video</span>
+          <span class="scat-chip">Audio</span>
+          <span class="scat-chip">Aplikasi</span>
+          <span class="scat-chip">Kode</span>
+        </div>
+
+        <!-- Meta status banner -->
+        <div class="spotlight-meta-banner">
+          <span>Menemukan <strong>1.482 berkas</strong> dalam <strong>0.38 ms</strong></span>
+          <span style="color: #10b981; font-weight: 600;">● Indeks Tantivy Aktif</span>
+        </div>
+
+        <!-- Results List -->
+        <div class="spotlight-results">
+          <!-- Item 1 (Highlighted) -->
+          <div class="spotlight-item highlighted">
+            <div class="spotlight-item-main">
+              <div class="spotlight-item-icon exe">EXE</div>
+              <div class="spotlight-item-info">
+                <div class="spotlight-item-title"><em>proyek-nexora</em>-finder.exe</div>
+                <div class="spotlight-item-path">D:\Rust\Nexora Finder\src-tauri\target\release</div>
+              </div>
+            </div>
+            <div class="spotlight-item-meta">
+              <span>14.2 MB</span>
+              <span>Hari ini, 18:20</span>
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="spotlight-item">
+            <div class="spotlight-item-main">
+              <div class="spotlight-item-icon code">RS</div>
+              <div class="spotlight-item-info">
+                <div class="spotlight-item-title">main.rs — <em>proyek-nexora</em> engine</div>
+                <div class="spotlight-item-path">D:\Rust\Nexora Finder\src-tauri\src\main.rs</div>
+              </div>
+            </div>
+            <div class="spotlight-item-meta">
+              <span>8.6 KB</span>
+              <span>Kemarin</span>
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="spotlight-item">
+            <div class="spotlight-item-main">
+              <div class="spotlight-item-icon img">JPG</div>
+              <div class="spotlight-item-info">
+                <div class="spotlight-item-title">preview-grid.jpg — screenshot UI</div>
+                <div class="spotlight-item-path">D:\Rust\Nexora Finder\docs\screenshots</div>
+              </div>
+            </div>
+            <div class="spotlight-item-meta">
+              <span>80.2 KB</span>
+              <span>3 hari lalu</span>
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="spotlight-item">
+            <div class="spotlight-item-main">
+              <div class="spotlight-item-icon db">DB</div>
+              <div class="spotlight-item-info">
+                <div class="spotlight-item-title">tantivy_index.db — metadata cache</div>
+                <div class="spotlight-item-path">D:\Rust\Nexora Finder\data</div>
+              </div>
+            </div>
+            <div class="spotlight-item-meta">
+              <span>3.4 MB</span>
+              <span>1 minggu lalu</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Spotlight Footer -->
+        <div class="spotlight-footer">
+          <div class="spotlight-footer-keys">
+            <span><kbd>↑</kbd><kbd>↓</kbd> Navigasi</span>
+            <span><kbd>Enter</kbd> Buka</span>
+            <span><kbd>Shift</kbd> + <kbd>Enter</kbd> Buka Lokasi</span>
+            <span><kbd>Esc</kbd> Tutup</span>
+          </div>
+          <div>Pintasan Global: <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>S</kbd> / <kbd>Alt</kbd> + <kbd>Space</kbd></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screenshots Preview Section -->
+    <section class="section wrap gallery-section">
+      <p class="eyebrow reveal">Tampilan Antarmuka</p>
+      <h2 class="reveal" style="--d: 70ms">
+        Dua mode tampilan: <em>List View &amp; Grid View</em>
+      </h2>
+      <p class="lead reveal" style="--d: 130ms">
+        Pilih mode daftar terstruktur untuk informasi path mendalam, atau mode thumbnail grid 1:1 untuk pratinjau gambar instan.
+      </p>
+
+      <div class="cards" style="grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); margin-top: 36px;">
+        <!-- List View Preview Card -->
+        <div class="gallery-card reveal" style="--d: 180ms">
+          <img src="assets/finder-preview-list.jpg" alt="Nexora Finder List View Screenshot" loading="lazy" />
+          <div class="gallery-card-caption">
+            <div>
+              <strong>Mode Tampilan Daftar (List View)</strong>
+              <div style="font-size: 0.74rem; color: var(--muted-2); margin-top: 2px;">Informasi ukuran berkas, ekstensi, jalur folder, &amp; tanggal</div>
+            </div>
+            <span class="meta-pill" style="margin: 0; padding: 4px 10px; font-size: 0.7rem;">Detail Lengkap</span>
+          </div>
+        </div>
+
+        <!-- Grid View Preview Card -->
+        <div class="gallery-card reveal" style="--d: 260ms">
+          <img src="assets/finder-preview-grid.jpg" alt="Nexora Finder Grid View Screenshot" loading="lazy" />
+          <div class="gallery-card-caption">
+            <div>
+              <strong>Mode Tampilan Thumbnail (Grid View)</strong>
+              <div style="font-size: 0.74rem; color: var(--muted-2); margin-top: 2px;">Kartu thumbnail visual 1:1 untuk identifikasi gambar cepat</div>
+            </div>
+            <span class="meta-pill" style="margin: 0; padding: 4px 10px; font-size: 0.7rem;">Pratinjau Visual</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Features Section -->
+    <section class="section wrap" id="fitur">
+      <p class="eyebrow reveal">Fitur Utama</p>
+      <h2 class="reveal" style="--d: 70ms">
+        Kecepatan tanpa kompromi, <em>desain tanpa cela</em>
+      </h2>
+      <p class="lead reveal" style="--d: 130ms">
+        Semua fitur dirancang khusus untuk memangkas waktu Anda mencari berkas di Windows tanpa harus menunggu indexing berat bawaan OS.
+      </p>
+
+      <div class="feature-showcase-grid">
+        <!-- Feature 1 -->
+        <article class="feature-box reveal" style="--d: 0ms">
+          <div class="feature-box-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0z" />
+            </svg>
+          </div>
+          <h3>Pencarian Super Instan (&lt; 1 ms)</h3>
+          <p>Mencari di antara jutaan file tanpa jeda menggunakan mesin indeks teks penuh Tantivy yang sangat optimal.</p>
+          <ul>
+            <li><strong>Engine Tantivy:</strong> Terinspirasi dari Apache Lucene, dioptimasi dengan efisiensi memori Rust.</li>
+            <li><strong>Database Metadata SQLite:</strong> Penyimpanan riwayat dan metadata file yang terindeks rapi.</li>
+            <li><strong>Zero Lag:</strong> Hasil pencarian muncul seketika saat karakter pertama diketikkan.</li>
+          </ul>
+        </article>
+
+        <!-- Feature 2 -->
+        <article class="feature-box reveal" style="--d: 80ms">
+          <div class="feature-box-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 3a9 9 0 0 1 9 9" />
+              <path d="M12 8a4 4 0 0 1 4 4" />
+            </svg>
+          </div>
+          <h3>Jendela Spotlight Adaptif</h3>
+          <p>Antarmuka mengambang di tengah layar yang secara otomatis menyesuaikan ukuran jendela sesuai kebutuhan.</p>
+          <ul>
+            <li><strong>Ramping Saat Standby:</strong> Hanya menampilkan bilah pencarian elegan saat baru dibuka.</li>
+            <li><strong>Melebar Dinamis:</strong> Animasi ekspansi halus ke bawah segera setelah hasil ditemukan.</li>
+            <li><strong>Efek Glassmorphism:</strong> Latar kaca frosted transparan dengan aksen gradient modern.</li>
+          </ul>
+        </article>
+
+        <!-- Feature 3 -->
+        <article class="feature-box reveal" style="--d: 160ms">
+          <div class="feature-box-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M4 4h6v6h-6z" />
+              <path d="M14 4h6v6h-6z" />
+              <path d="M4 14h6v6h-6z" />
+              <path d="M14 14h6v6h-6z" />
+            </svg>
+          </div>
+          <h3>Filter Kategori &amp; Drive Cepat</h3>
+          <p>Pilah dan persempit pencarian secara instan berdasarkan tipe file dan partisi drive Windows Anda.</p>
+          <ul>
+            <li><strong>8 Kategori Bawaan:</strong> Folder, Dokumen, Gambar, Video, Audio, Aplikasi, Arsip, dan Kode.</li>
+            <li><strong>Filter Drive Mandiri:</strong> Cari di seluruh drive (All) atau isolasi drive tertentu (C:, D:, dll).</li>
+            <li><strong>Pintasan Tab:</strong> Beralih filter kategori dengan cepat menggunakan tombol <kbd>Tab</kbd>.</li>
+          </ul>
+        </article>
+
+        <!-- Feature 4 -->
+        <article class="feature-box reveal" style="--d: 240ms">
+          <div class="feature-box-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M13 13l6 6" />
+              <path d="M14.5 10.5l-2.5 2.5" />
+              <path d="M3 3l18 18" />
+              <path d="M6 18h12a2 2 0 0 0 2 -2v-12" />
+            </svg>
+          </div>
+          <h3>Menu Klik Kanan Kustom (Context Menu)</h3>
+          <p>Integrasi langsung ke Windows Explorer untuk tindakan berkas yang paling sering dibutuhkan.</p>
+          <ul>
+            <li><strong>Buka:</strong> Jalankan berkas dengan program default Windows.</li>
+            <li><strong>Buka dengan... (Open with):</strong> Dialog resmi Windows untuk memilih aplikasi pembuka.</li>
+            <li><strong>Buka lokasi berkas:</strong> Buka File Explorer dan langsung menyorot posisi file tersebut.</li>
+            <li><strong>Salin Jalur:</strong> Menyalin path absolut direktori ke clipboard secara instan.</li>
+          </ul>
+        </article>
+
+        <!-- Feature 5 -->
+        <article class="feature-box reveal" style="--d: 320ms">
+          <div class="feature-box-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M12 3a9 9 0 0 1 9 9v1a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2v-1a4 4 0 1 0 -8 0v1a2 2 0 0 1 -2 2h-1a2 2 0 0 1 -2 -2v-1a9 9 0 0 1 9 -9z" />
+            </svg>
+          </div>
+          <h3>Auto Minimize Cerdas</h3>
+          <p>Aplikasi tidak pernah menghalangi alur kerja Anda dan otomatis bersembunyi saat selesai.</p>
+          <ul>
+            <li><strong>Auto-Hide saat Enter:</strong> Menekan Enter langsung membuka file dan meminimalkan Finder.</li>
+            <li><strong>Klik di Luar Jendela:</strong> Mengklik area layar lain langsung menyembunyikan jendela ke background tray.</li>
+            <li><strong>Konsumsi Memori Rendah:</strong> Arsitektur Tauri 2.0 memastikan penggunaan RAM sangat minim saat standby.</li>
+          </ul>
+        </article>
+
+        <!-- Feature 6 -->
+        <article class="feature-box reveal" style="--d: 400ms">
+          <div class="feature-box-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M5 4h14a1 1 0 0 1 1 1v5a1 1 0 0 1 -1 1h-14a1 1 0 0 1 -1 -1v-5a1 1 0 0 1 1 -1z" />
+              <path d="M4 14h16" />
+              <path d="M4 18h16" />
+            </svg>
+          </div>
+          <h3>Pintasan Global &amp; Navigasi Penuh</h3>
+          <p>Panggil jendela pencarian kapan saja dari aplikasi mana pun tanpa menyentuh mouse.</p>
+          <ul>
+            <li><strong>Panggilan Global:</strong> Tekan <code>Ctrl + Alt + S</code> atau <code>Alt + Space</code> dari mana saja.</li>
+            <li><strong>Navigasi Keyboard Lengkap:</strong> Panah Atas/Bawah, Enter, Shift+Enter, dan Esc.</li>
+            <li><strong>Mode Terang &amp; Gelap:</strong> Mendukung transisi tema mulus yang serasi dengan preferensi OS Anda.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Keyboard Shortcuts Section -->
+    <section class="section wrap" id="shortcuts">
+      <p class="eyebrow reveal">Pintasan Keyboard</p>
+      <h2 class="reveal" style="--d: 70ms">
+        Kendali penuh di ujung <em>jari Anda</em>
+      </h2>
+      <p class="lead reveal" style="--d: 130ms">
+        Daftar pintasan hotkeys esensial untuk navigasi berkas berkecepatan tinggi.
+      </p>
+
+      <div class="shortcuts-table-wrapper reveal" style="--d: 200ms">
+        <table class="shortcuts-table">
+          <thead>
+            <tr>
+              <th style="width: 34%;">Pintasan Tombol</th>
+              <th>Aksi / Fungsi</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>S</kbd> &nbsp;atau&nbsp; <kbd>Alt</kbd> + <kbd>Space</kbd></td>
+              <td><strong>Panggilan Global:</strong> Tampilkan atau sembunyikan jendela Nexora Finder dari mana saja.</td>
+            </tr>
+            <tr>
+              <td><kbd>↑</kbd> &nbsp;<kbd>↓</kbd> &nbsp;<kbd>←</kbd> &nbsp;<kbd>→</kbd></td>
+              <td><strong>Navigasi:</strong> Berpindah fokus antar hasil pencarian di mode List maupun Grid View.</td>
+            </tr>
+            <tr>
+              <td><kbd>Enter</kbd></td>
+              <td><strong>Buka Berkas:</strong> Buka berkas atau folder terpilih dengan aplikasi default dan minimalkan Finder.</td>
+            </tr>
+            <tr>
+              <td><kbd>Shift</kbd> + <kbd>Enter</kbd></td>
+              <td><strong>Buka Lokasi:</strong> Buka Windows File Explorer dan langsung menyorot posisi berkas tersebut.</td>
+            </tr>
+            <tr>
+              <td><kbd>Tab</kbd></td>
+              <td><strong>Pindah Kategori:</strong> Beralih cepat ke filter kategori berkas berikutnya.</td>
+            </tr>
+            <tr>
+              <td><kbd>Esc</kbd></td>
+              <td><strong>Tutup:</strong> Bersihkan kata kunci pencarian atau langsung sembunyikan jendela Finder.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Installation & Dev Guide -->
+    <section class="section wrap" id="instalasi">
+      <p class="eyebrow reveal">Panduan &amp; Kompilasi</p>
+      <h2 class="reveal" style="--d: 70ms">
+        Menjalankan <em>Nexora Finder</em>
+      </h2>
+
+      <div class="cards" style="grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));">
+        <!-- Card 1: Dev Mode -->
+        <article class="card reveal" style="--d: 100ms">
+          <div class="icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 9l3 3l-3 3" /><path d="M13 15l3 0" /><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /></svg>
+          </div>
+          <h3>1. Mode Pengembangan (Dev Mode)</h3>
+          <p>Jalankan live-reload frontend React dengan backend Rust:</p>
+          
+          <div class="code-block">
+            <div class="code-header">
+              <span>Terminal / PowerShell</span>
+              <span>Node + Cargo</span>
+            </div>
+            <pre class="code-body"><span class="comment"># Clone repositori</span>
+<span class="cmd">git clone</span> https://github.com/nexora-ctrl/nexora-finder.git
+<span class="cmd">cd</span> nexora-finder
+
+<span class="comment"># Pasang dependensi frontend</span>
+<span class="cmd">npm install</span>
+
+<span class="comment"># Jalankan dev mode</span>
+<span class="cmd">npm run tauri dev</span></pre>
+          </div>
+        </article>
+
+        <!-- Card 2: Production Build -->
+        <article class="card reveal" style="--d: 180ms">
+          <div class="icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
+          </div>
+          <h3>2. Membangun Biner Rilis (.exe)</h3>
+          <p>Kompilasi file binary executable mandiri siap pakai tanpa installer:</p>
+          
+          <div class="code-block">
+            <div class="code-header">
+              <span>PowerShell</span>
+              <span>Tauri Production Build</span>
+            </div>
+            <pre class="code-body"><span class="comment"># Build binary standalone .exe</span>
+<span class="cmd">npm run tauri build</span> -- --no-bundle</pre>
+          </div>
+
+          <p style="margin-top: 14px; font-size: 0.82rem; color: var(--muted-2);">
+            File executable portabel akan dihasilkan di folder <code>src-tauri/target/release/nexora-finder.exe</code> dan dapat langsung disematkan di Taskbar atau Startup Windows.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Tech Architecture Section -->
+    <section class="section wrap" id="arsitektur">
+      <p class="eyebrow reveal">Teknologi &amp; Arsitektur</p>
+      <h2 class="reveal" style="--d: 70ms">
+        Pondasi <em>kecepatan kilat</em>
+      </h2>
+      <p class="lead reveal" style="--d: 130ms">
+        Kombinasi teknologi modern untuk performa maksimal, konsumsi baterai rendah, dan respons instan.
+      </p>
+
+      <div class="chips reveal" style="--d: 200ms">
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 5m0 1a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1z" /><path d="M9 9h6v6h-6z" /></svg>
+          Rust Backend (Win32 API)
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0z" /></svg>
+          Tantivy Search Engine
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M6 8h.01" /><path d="M9 8h.01" /></svg>
+          Tauri 2.0
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6.306 8.711c-1.257 3.551 -.75 6.423 .908 6.423c3.48 0 7.85 -7.423 9.47 -7.423c1.62 0 2.158 2.872 .902 6.423" /><path d="M17.694 8.711c1.257 3.551 .75 6.423 -.908 6.423c-3.48 0 -7.85 -7.423 -9.47 -7.423c-1.62 0 -2.158 2.872 -.902 6.423" /></svg>
+          React 19 + TypeScript
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c-4.97 0 -9 1.79 -9 4v10c0 2.21 4.03 4 9 4s9 -1.79 9 -4v-10c0 -2.21 -4.03 -4 -9 -4z" /><path d="M3 11c0 2.21 4.03 4 9 4s9 -1.79 9 -4" /></svg>
+          SQLite Metadata
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2z" /><path d="M9 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z" /></svg>
+          Lucide &amp; Tabler Icons
+        </span>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta wrap">
+      <div class="cta-inner reveal">
+        <h2>Temukan berkas Anda dalam kedipan mata.</h2>
+        <p>Nexora Finder adalah open-source dan gratis di bawah lisensi MIT. Silakan coba dan bantu kami kembangkan di GitHub.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://github.com/nexora-ctrl/nexora-finder" target="_blank" rel="noopener">
+            <span>Kunjungi Repositori GitHub</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true">
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+              <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+            </svg>
+          </a>
+          <a class="btn btn-ghost" href="studio.html">
+            <span>Lihat Juga: NEXORA Studio →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span class="left">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true" style="color: var(--cyan);"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm0 -12a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2zm-7 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z" /></svg>
+        Nexora Finder
+      </span>
+      <div class="footer-links">
+        <a href="index.html">Beranda</a>
+        <a href="studio.html">NEXORA Studio</a>
+        <a href="https://github.com/nexora-ctrl/nexora-finder" target="_blank" rel="noopener">GitHub</a>
+        <a href="#top">Kembali ke Atas ↑</a>
+      </div>
+      <span>&copy; 2026 NEXORA &middot; Built with Rust, Tantivy &amp; Tauri</span>
+    </div>
+  </footer>
+
+  <noscript>
+    <style>.reveal { opacity: 1; transform: none; }</style>
+  </noscript>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var root = document.documentElement;
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      /* ============ THEME TOGGLE ============ */
+      var themeMeta = document.getElementById("themeColor");
+      var themeColors = { dark: "#060814", light: "#f3f5fc" };
+      var toggle = document.getElementById("themeToggle");
+
+      var stored = null;
+      try { stored = localStorage.getItem("nexora-theme"); } catch (e) {}
+      var explicit = (stored === "light" || stored === "dark");
+
+      var forced = null;
+      try {
+        var q = new URLSearchParams(window.location.search).get("theme");
+        if (q === "light" || q === "dark") forced = q;
+      } catch (e) {}
+
+      function applyTheme(theme, animate) {
+        root.setAttribute("data-theme", theme);
+        if (themeMeta) themeMeta.setAttribute("content", themeColors[theme] || themeColors.dark);
+        if (toggle) {
+          toggle.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
+          toggle.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+          toggle.setAttribute("title", theme === "dark" ? "Mode terang" : "Mode gelap");
+        }
+        if (!forced) {
+          try { localStorage.setItem("nexora-theme", theme); } catch (e) {}
+        }
+        if (animate && !reduceMotion) {
+          root.classList.add("theme-anim");
+          window.setTimeout(function () {
+            root.classList.remove("theme-anim");
+          }, 520);
+        }
+      }
+
+      applyTheme(root.getAttribute("data-theme") || "dark", false);
+
+      if (toggle) {
+        toggle.addEventListener("click", function () {
+          explicit = true;
+          applyTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark", true);
+        });
+      }
+
+      /* Mobile menu toggle */
+      var menuToggle = document.getElementById("menuToggle");
+      var nav = document.getElementById("nav");
+      if (menuToggle && nav) {
+        menuToggle.addEventListener("click", function () {
+          var open = nav.classList.toggle("open");
+          menuToggle.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+      }
+
+      /* Header state on scroll */
+      var header = document.getElementById("header");
+      var onScroll = function () {
+        if (window.scrollY > 24) header.classList.add("scrolled");
+        else header.classList.remove("scrolled");
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+
+      /* Reveal on scroll */
+      var items = document.querySelectorAll(".reveal");
+      if (reduceMotion || !("IntersectionObserver" in window)) {
+        items.forEach(function (el) { el.classList.add("in"); });
+      } else {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in");
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: "0px 0px -8% 0px" });
+        items.forEach(function (el) { io.observe(el); });
+      }
+
+      /* Cursor spotlight (desktop only) */
+      if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+        var mx = 0, my = 0, queued = false;
+        var paint = function () {
+          root.style.setProperty("--mx", mx + "px");
+          root.style.setProperty("--my", my + "px");
+          queued = false;
+        };
+        window.addEventListener("pointermove", function (e) {
+          mx = e.clientX;
+          my = e.clientY;
+          if (!queued) {
+            queued = true;
+            window.requestAnimationFrame(paint);
+          }
+        }, { passive: true });
+      }
+    })();
+  </script>
+</body>
+</html>
+
