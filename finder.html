@@ -668,9 +668,18 @@
 
       /* Header state on scroll */
       var header = document.getElementById("header");
+      var ticking = false;
       var onScroll = function () {
-        if (window.scrollY > 24) header.classList.add("scrolled");
-        else header.classList.remove("scrolled");
+        if (!ticking) {
+          window.requestAnimationFrame(function () {
+            if (header) {
+              if (window.scrollY > 20) header.classList.add("scrolled");
+              else header.classList.remove("scrolled");
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
       };
       window.addEventListener("scroll", onScroll, { passive: true });
       onScroll();

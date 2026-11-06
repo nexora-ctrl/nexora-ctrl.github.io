@@ -648,14 +648,21 @@
       var nav = document.getElementById("nav");
       var menuBtn = document.getElementById("menuToggle");
 
+      var ticking = false;
       var onScroll = function () {
-        if (header) {
-          if (window.scrollY > 24) header.classList.add("scrolled");
-          else header.classList.remove("scrolled");
-        }
-        if (bar) {
-          var max = document.documentElement.scrollHeight - window.innerHeight;
-          bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + "%";
+        if (!ticking) {
+          window.requestAnimationFrame(function () {
+            if (header) {
+              if (window.scrollY > 20) header.classList.add("scrolled");
+              else header.classList.remove("scrolled");
+            }
+            if (bar) {
+              var max = document.documentElement.scrollHeight - window.innerHeight;
+              bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + "%";
+            }
+            ticking = false;
+          });
+          ticking = true;
         }
       };
       window.addEventListener("scroll", onScroll, { passive: true });
