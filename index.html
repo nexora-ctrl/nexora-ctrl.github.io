@@ -6,7 +6,7 @@
   <title>NEXORA — One Name. Endless Possibilities.</title>
 
   <meta name="description" content="NEXORA is an independent creative technology space where ideas become applications, tools, and experiments worth building." />
-  <meta name="theme-color" content="#060814" id="themeColor" />
+  <meta name="theme-color" content="#070c18" id="themeColor" />
   <meta name="color-scheme" content="dark light" />
 
   <!-- Open Graph -->
@@ -103,6 +103,11 @@
   <main id="top">
     <!-- Hero -->
     <section class="hero">
+      <!-- vgpu: Ambient Particle Vortex (NEXORA Theme) -->
+      <div class="hero-vgpu-container" aria-hidden="true">
+        <canvas id="vgpuCanvas" class="hero-vgpu-canvas"></canvas>
+      </div>
+
       <div class="hero-art" aria-hidden="true">
         <span class="ring r1"></span>
         <span class="ring r2"></span>
@@ -243,7 +248,7 @@
         Built for Windows. <span>Engineered for Performance.</span>
       </h2>
       <p class="lead reveal" style="--d: 130ms; margin-bottom: clamp(32px, 5vw, 56px);">
-        Aplikasi desktop native yang ringan, responsif, dan bebas beban berat (<em>zero bloat</em>) bertenaga bahasa pemrograman Rust.
+        Aplikasi desktop native yang ringan, responsif, dan bebas beban berat (<em>zero bloat</em>) &mdash; menghadirkan pengalaman kerja yang cepat dan intuitif.
       </p>
 
       <!-- Project 1: NEXORA Studio -->
@@ -253,29 +258,32 @@
             <span class="dot" aria-hidden="true"></span>
             Featured Desktop Suite
           </p>
-          <h2>NEXORA Studio</h2>
+          <div style="display: flex; align-items: center; gap: 14px; margin: 16px 0 12px;">
+            <img src="assets/studio-icon.png" alt="NEXORA Studio Logo" width="46" height="46" style="border-radius: 13px; box-shadow: 0 4px 16px rgba(0,0,0,0.35); flex-shrink: 0;" />
+            <h2 style="margin: 0;">NEXORA Studio</h2>
+          </div>
           <p class="feature-desc">
-            Aplikasi desktop <em>screen recording</em>, siaran langsung <em>virtual camera DirectShow</em>,
-            dan <em>presentation studio</em> native Windows berkinerja tinggi yang dibangun 100%
-            menggunakan <strong>Rust</strong> dan framework GUI <strong>egui</strong>.
+            Suite presentasi desktop, perekam layar fleksibel (<em>screen recording</em>),
+            dan kamera virtual instan untuk siaran langsung di Windows. Didesain ringkas,
+            responsif, dan bebas beban berat (<em>zero bloat</em>) untuk webinar, presentasi, dan kreator konten.
           </p>
 
           <div class="chips">
             <span class="chip">
-              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 4l-2 14.5l-6 2l-6 -2l-2 -14.5z" /><path d="M7.5 8h3v8l-2 -1" /></svg>
-              Rust 2021
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z" /><path d="M3 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" /></svg>
+              Virtual Camera Native
+            </span>
+            <span class="chip">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" /><path d="M12 4v16" /></svg>
+              Dual-Canvas Studio
+            </span>
+            <span class="chip">
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0z" /></svg>
+              Zero Bloat &amp; Ringan
             </span>
             <span class="chip">
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M9 9h6v6h-6z" /></svg>
-              egui / eframe
-            </span>
-            <span class="chip">
-              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16 3l5 2l-7 16l-4 -4l-5 4l-2 -2l4 -5l-4 -5l2 -2l5 4z" /></svg>
-              DirectShow
-            </span>
-            <span class="chip">
-              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3a9 9 0 1 0 9 9" /><path d="M12 7a5 5 0 1 0 5 5" /><path d="M12 11a1 1 0 1 0 1 1" /></svg>
-              v0.6.0 Stable
+              Windows 10 | 11 Native
             </span>
           </div>
 
@@ -326,8 +334,8 @@
               <div class="mock-meter"><i></i></div>
               <div class="mock-foot">
                 <span>1080p60</span>
-                <span>HW Encode</span>
-                <span>DirectShow</span>
+                <span>Hardware Accelerated</span>
+                <span>DirectShow Output</span>
               </div>
             </div>
           </div>
@@ -341,29 +349,32 @@
             <span class="dot" aria-hidden="true"></span>
             Featured Search Utility &middot; &lt; 1 ms
           </p>
-          <h2>Nexora Finder</h2>
+          <div style="display: flex; align-items: center; gap: 14px; margin: 16px 0 12px;">
+            <img src="assets/finder-icon.png" alt="Nexora Finder Logo" width="46" height="46" style="border-radius: 13px; box-shadow: 0 4px 16px rgba(0,0,0,0.35); flex-shrink: 0;" />
+            <h2 style="margin: 0;">Nexora Finder</h2>
+          </div>
           <p class="feature-desc">
             Aplikasi desktop pencarian berkas dan folder berkecepatan tinggi native Windows.
-            Bertenaga mesin pencari <strong>Tantivy</strong> (&lt; 1 ms), arsitektur <strong>Rust + Tauri 2.0</strong>,
-            serta antarmuka adaptif bergaya <em>macOS Spotlight</em> yang elegan.
+            Temukan file di antara jutaan data dalam hitungan milidetik (&lt; 1 ms) melalui
+            antarmuka <em>Spotlight mengambang</em> yang bersih, intuitif, dan responsif.
           </p>
 
           <div class="chips">
             <span class="chip">
-              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20 4l-2 14.5l-6 2l-6 -2l-2 -14.5z" /><path d="M7.5 8h3v8l-2 -1" /></svg>
-              Rust Backend
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0z" /></svg>
+              Pencarian Cepat &lt; 1 ms
             </span>
             <span class="chip">
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
-              Tantivy &lt; 1 ms
+              Spotlight Mengambang
             </span>
             <span class="chip">
               <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z" /><path d="M9 4v16" /><path d="M15 4v16" /></svg>
-              Tauri 2.0 + React 19
+              8 Kategori &amp; Drive
             </span>
             <span class="chip">
-              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0z" /></svg>
-              Spotlight Style
+              <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4h6v6h-6z" /><path d="M14 4h6v6h-6z" /><path d="M4 14h6v6h-6z" /><path d="M14 14h6v6h-6z" /></svg>
+              Pratinjau List &amp; Grid
             </span>
           </div>
 
@@ -396,32 +407,32 @@
             <div class="mock-body">
               <div class="finder-mock-input">
                 <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0" /><path d="M21 21l-6 -6" /></svg>
-                <span class="finder-mock-query">nexora-presentation</span>
+                <span class="finder-mock-query">presentasi-tahunan</span>
                 <span class="finder-mock-time">0.42 ms</span>
               </div>
               <div class="mock-row">
                 <span class="mock-badge-tag doc">DOC</span>
                 <div class="finder-mock-file">
-                  <strong>nexora-presentation-final.pptx</strong>
+                  <strong>presentasi-tahunan-final.pptx</strong>
                   <small>D:\Presentasi\NEXORA &middot; 4.2 MB</small>
                 </div>
               </div>
               <div class="mock-row">
-                <span class="mock-badge-tag code">RS</span>
+                <span class="mock-badge-tag code">XLS</span>
                 <div class="finder-mock-file">
-                  <strong>nexora_engine.rs</strong>
-                  <small>src\core\search &middot; 38 KB</small>
+                  <strong>laporan-keuangan-2026.xlsx</strong>
+                  <small>D:\Dokumen\Keuangan &middot; 86 KB</small>
                 </div>
               </div>
               <div class="mock-row">
                 <span class="mock-badge-tag img">IMG</span>
                 <div class="finder-mock-file">
-                  <strong>nexora-cover-banner.png</strong>
+                  <strong>desain-banner-promosi.png</strong>
                   <small>assets\brand &middot; 1.8 MB</small>
                 </div>
               </div>
               <div class="mock-foot">
-                <span>Tantivy Engine</span>
+                <span>Pencarian Cepat</span>
                 <span>Ctrl + Alt + S</span>
                 <span>Real-Time Index</span>
               </div>
@@ -570,7 +581,7 @@
 
       /* ============ THEME (light / dark) ============ */
       var themeMeta = document.getElementById("themeColor");
-      var themeColors = { dark: "#060814", light: "#f3f5fc" };
+      var themeColors = { dark: "#070c18", light: "#f4f7fc" };
       var toggle = document.getElementById("themeToggle");
 
       var stored = null;
@@ -751,5 +762,8 @@
       }
     })();
   </script>
+
+  <!-- Hero vgpu Animation (WebGPU + Canvas Fallback) -->
+  <script src="vgpu-animation.js"></script>
 </body>
 </html>

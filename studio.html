@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NEXORA Studio — Lightweight Studio Presentation & Screen Recording Suite for Windows</title>
 
-  <meta name="description" content="NEXORA Studio adalah aplikasi desktop screen recording, virtual camera DirectShow, dan presentation studio native Windows berkinerja tinggi yang dibangun 100% menggunakan Rust dan egui." />
-  <meta name="theme-color" content="#05070f" />
-  <meta name="color-scheme" content="dark" />
+  <meta name="description" content="NEXORA Studio adalah aplikasi desktop screen recording, virtual camera DirectShow, dan presentation studio native Windows berkinerja tinggi yang responsif dan bebas beban berat." />
+  <meta name="theme-color" content="#070c18" id="themeColor" />
+  <meta name="color-scheme" content="dark light" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="NEXORA Studio — Native Windows Presentation & Virtual Camera Suite" />
-  <meta property="og:description" content="Aplikasi studio presentasi & virtual camera ringan bertenaga 100% Rust untuk Windows 10 & 11." />
+  <meta property="og:title" content="NEXORA Studio — Native Windows Presentation &amp; Virtual Camera Suite" />
+  <meta property="og:description" content="Aplikasi studio presentasi, screen recording, &amp; virtual camera ringan untuk Windows 10 &amp; 11." />
   <meta property="og:url" content="https://nexora-ctrl.github.io/studio.html" />
 
   <!-- Favicon -->
@@ -24,6 +24,24 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
+
+  <!-- Theme bootstrap: set before first paint to avoid flashing -->
+  <script>
+    (function () {
+      var theme = "dark";
+      try {
+        var params = new URLSearchParams(window.location.search);
+        var forced = params.get("theme");
+        var stored = localStorage.getItem("nexora-theme");
+        theme = (forced === "light" || forced === "dark")
+          ? forced
+          : ((stored === "light" || stored === "dark")
+            ? stored
+            : (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"));
+      } catch (e) {}
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
 
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="studio.css" />
@@ -46,7 +64,7 @@
     <a class="brand" href="index.html" aria-label="NEXORA — kembali ke beranda">
       <img src="logo-white.png" alt="NEXORA" class="brand-logo" width="138" height="25" />
     </a>
-    <nav class="nav" aria-label="Navigasi Proyek">
+    <nav class="nav" id="nav" aria-label="Navigasi Proyek">
       <a href="index.html">← Beranda</a>
       <a href="finder.html">Nexora Finder</a>
       <a href="#fitur">Fitur</a>
@@ -61,6 +79,22 @@
         </svg>
       </a>
     </nav>
+
+    <div class="header-tools">
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode" aria-pressed="false" title="Ganti tema">
+        <svg class="tt-icon tt-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4" />
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+        </svg>
+        <svg class="tt-icon tt-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z" />
+        </svg>
+      </button>
+
+      <button class="menu-toggle" id="menuToggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Buka menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </header>
 
   <main id="top">
@@ -68,24 +102,15 @@
     <section class="studio-hero wrap">
       <!-- App Icon -->
       <div class="studio-app-icon reveal" style="--d: 0ms">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler">
-          <defs>
-            <linearGradient id="iconGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#38bdf8" />
-              <stop offset="100%" stop-color="#c4b5fd" />
-            </linearGradient>
-          </defs>
-          <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-          <path d="M15 10l4.553 -2.276a1 1 0 0 1 1.447 .894v6.764a1 1 0 0 1 -1.447 .894l-4.553 -2.276v-4z" />
-          <path d="M3 6m0 2a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2z" />
-        </svg>
+        <img src="assets/studio-icon.png" alt="NEXORA Studio Logo" width="104" height="104" />
       </div>
 
       <div class="badges-row reveal" style="--d: 80ms">
-        <span class="meta-pill"><span class="pill-dot"></span>v0.6.0 Stable</span>
-        <span class="meta-pill rust"><span class="pill-dot"></span>Rust 2021 Edition</span>
+        <span class="meta-pill"><span class="pill-dot"></span>v0.9.0 Active</span>
+        <span class="meta-pill"><span class="pill-dot" style="background:#0284c7; box-shadow:0 0 8px #0284c7;"></span>Virtual Camera Native</span>
+        <span class="meta-pill"><span class="pill-dot" style="background:#10b981; box-shadow:0 0 8px #10b981;"></span>Dual-Canvas 60 FPS</span>
         <span class="meta-pill win"><span class="pill-dot"></span>Windows 10 | 11</span>
-        <span class="meta-pill license"><span class="pill-dot"></span>MIT / Apache-2.0</span>
+        <span class="meta-pill license"><span class="pill-dot"></span>Open Source</span>
       </div>
 
       <h1 class="reveal" style="--d: 140ms">NEXORA Studio</h1>
@@ -95,7 +120,7 @@
       </p>
 
       <p class="lead reveal" style="--d: 260ms">
-        Aplikasi desktop native Windows berkinerja tinggi yang dibangun 100% menggunakan bahasa pemrograman <strong>Rust</strong> dan framework GUI <strong>egui</strong>. Menghadirkan antarmuka studio profesional ala OBS Studio namun jauh lebih ringkas, responsif, dan bebas beban berat (<em>zero bloat</em>).
+        Aplikasi desktop native Windows berkinerja tinggi untuk siaran langsung dan perekaman layar. Menghadirkan antarmuka studio profesional ala broadcast TV dengan mode Dual-Canvas (Preview &amp; Program LIVE), kamera virtual instan, dan kontrol presentasi yang mulus &mdash; dirancang ringkas, responsif, dan bebas beban berat (<em>zero bloat</em>).
       </p>
 
       <div class="actions reveal" style="--d: 320ms">
@@ -117,77 +142,28 @@
         </a>
       </div>
 
-      <!-- Realistic Studio Interface Mockup -->
+      <!-- Real Studio Interface Window -->
       <div class="mockup-container reveal" style="--d: 380ms">
         <div class="mockup-titlebar">
           <div class="mockup-dots">
             <span></span><span></span><span></span>
           </div>
-          <div>NEXORA Studio v0.6.0 — [1920x1080 @ 60 FPS] • DirectShow Virtual Camera Active</div>
-          <div style="font-size: 0.7rem; color: #10b981; font-weight: 600;">● SYSTEM READY</div>
-        </div>
-
-        <div class="mockup-viewports">
-          <!-- Preview Canvas -->
-          <div class="viewport-box">
-            <div class="viewport-tag green">PREVIEW (STANDBY)</div>
-            <div class="viewport-screen">
-              <div class="mockup-slide">
-                <h4>Slide 04: Arsitektur Rust</h4>
-                <p>Memperbarui layout layer & filter webcam...</p>
-              </div>
-              <div class="mockup-avatar-pip" title="Webcam Preview (Rounded Radius 16px)">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" /></svg>
-              </div>
-            </div>
-          </div>
-
-          <!-- Transition Controls Center -->
-          <div class="mockup-transition-center">
-            <div class="btn-t-cut">CUT</div>
-            <div class="btn-t-fade">FADE (300ms)</div>
-          </div>
-
-          <!-- Program LIVE Canvas -->
-          <div class="viewport-box live">
-            <div class="viewport-tag red">PROGRAM (LIVE SIARAN)</div>
-            <div class="viewport-screen">
-              <div class="mockup-slide">
-                <h4>Slide 03: Fitur Unggulan</h4>
-                <p>Output Virtual Camera aktif ke Zoom &amp; Teams</p>
-              </div>
-              <div class="mockup-avatar-pip" style="border-color: #ef4444;" title="Webcam Active on LIVE">
-                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M12 10m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" /><path d="M6.168 18.849a4 4 0 0 1 3.832 -2.849h4a4 4 0 0 1 3.834 2.855" /></svg>
-              </div>
-            </div>
+          <div class="mockup-title-text">NEXORA Studio — Dual-Canvas Studio &amp; Virtual Camera [1920×1080 @ 60 FPS]</div>
+          <div class="mockup-theme-switcher" role="tablist" aria-label="Pilihan Tema Tampilan Aplikasi">
+            <button type="button" class="studio-tab-btn active" id="btnStudioDark" title="Lihat Tampilan Dark Mode">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z" /></svg>
+              <span>Dark Mode</span>
+            </button>
+            <button type="button" class="studio-tab-btn" id="btnStudioLight" title="Lihat Tampilan Light Mode">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" /></svg>
+              <span>Light Mode</span>
+            </button>
           </div>
         </div>
 
-        <!-- Bottom Controls Dock -->
-        <div class="mockup-bottom-bar">
-          <div class="dock-panel">
-            <span class="dock-panel-title">Manajemen Scene</span>
-            <div class="dock-chips-list">
-              <span class="dock-chip-item active">● Scene Utama</span>
-              <span class="dock-chip-item">Presentasi PPT</span>
-              <span class="dock-chip-item">Layar Penuh</span>
-            </div>
-          </div>
-          <div class="dock-panel">
-            <span class="dock-panel-title">Daftar Sumber (Sources)</span>
-            <div class="dock-chips-list">
-              <span class="dock-chip-item active">Webcam HD (Radius 24px)</span>
-              <span class="dock-chip-item active">Display Monitor 1</span>
-              <span class="dock-chip-item">TimeSource (Neon Clock)</span>
-            </div>
-          </div>
-          <div class="dock-panel">
-            <span class="dock-panel-title">Audio Mixer (WASAPI)</span>
-            <div style="display: flex; flex-direction: column; gap: 4px;">
-              <span style="font-size: 0.68rem; color: #cbd5e1;">Desktop Loopback: -12.4 dB</span>
-              <div class="audio-bar-visual"><div class="audio-bar-fill"></div></div>
-            </div>
-          </div>
+        <div class="studio-screenshot-view" id="studioScreenshotView" data-active-screenshot="dark">
+          <img src="assets/studio-preview-dark.jpg" alt="NEXORA Studio Interface — Mode Gelap (Dual-Canvas Studio Mode, Audio Mixer, DirectShow VCam)" class="studio-preview-img dark-preview" loading="lazy" />
+          <img src="assets/studio-preview-light.jpg" alt="NEXORA Studio Interface — Mode Terang (Dual-Canvas Studio Mode, Audio Mixer, DirectShow VCam)" class="studio-preview-img light-preview" loading="lazy" />
         </div>
       </div>
     </section>
@@ -405,13 +381,13 @@
           <div class="icon" aria-hidden="true">
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 9l3 3l-3 3" /><path d="M13 15l3 0" /><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /></svg>
           </div>
-          <h3>Cara 2: Kompilasi dari Source Code</h3>
-          <p>Jika Anda seorang developer Rust dan ingin mengkompilasi sendiri:</p>
+          <h3>Cara 2: Kompilasi Mandiri dari Source Code</h3>
+          <p>Bagi Anda yang ingin menguji atau mengkompilasi langsung dari repositori resmi:</p>
           
           <div class="code-block">
             <div class="code-header">
-              <span>PowerShell</span>
-              <span>Cargo Toolchain</span>
+              <span>Terminal</span>
+              <span>Build Script</span>
             </div>
             <pre class="code-body"><span class="comment"># 1. Clone repository</span>
 <span class="cmd">git clone</span> https://github.com/nexora-ctrl/nexora-studio.git
@@ -424,36 +400,40 @@
       </div>
     </section>
 
-    <!-- Tech Architecture Section -->
+    <!-- Features Architecture Section -->
     <section class="section wrap" id="arsitektur">
-      <p class="eyebrow reveal">Teknologi</p>
+      <p class="eyebrow reveal">Keunggulan Fitur</p>
       <h2 class="reveal" style="--d: 70ms">
-        Dibangun di atas <em>pondasi performa tinggi</em>
+        Didesain untuk <em>kemudahan dan produktivitas</em>
       </h2>
       <p class="lead reveal" style="--d: 130ms">
-        Kombinasi teknologi native tanpa runtime berat untuk menjamin efisiensi memori dan CPU minimal saat siaran langsung.
+        Perpaduan fitur canggih dan antarmuka modern yang responsif untuk menjamin efisiensi memori serta kinerja visual optimal saat siaran langsung.
       </p>
 
       <div class="chips reveal" style="--d: 200ms">
         <span class="chip">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 5m0 1a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1z" /><path d="M9 9h6v6h-6z" /><path d="M3 10h2" /><path d="M3 14h2" /><path d="M10 3v2" /><path d="M14 3v2" /><path d="M21 10h-2" /><path d="M21 14h-2" /><path d="M14 21v-2" /><path d="M10 21v-2" /></svg>
-          Rust (2021 Edition)
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10z" /><path d="M7 20h10" /><path d="M9 16v4" /><path d="M15 16v4" /></svg>
+          DirectShow Virtual Camera
         </span>
         <span class="chip">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M6 8h.01" /><path d="M9 8h.01" /></svg>
-          egui &amp; eframe 0.31
-        </span>
-        <span class="chip">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1v-10z" /><path d="M7 20h10" /><path d="M9 16v4" /><path d="M15 16v4" /></svg>
-          DirectShow Virtual Camera
+          Dual-Canvas 60 FPS
         </span>
         <span class="chip">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 8a5 5 0 0 1 0 8" /><path d="M17.7 5a9 9 0 0 1 0 14" /><path d="M6 15h-2a1 1 0 0 1 -1 -1v-4a1 1 0 0 1 1 -1h2l3.5 -4.5a.8 .8 0 0 1 1.5 .5v14a.8 .8 0 0 1 -1.5 .5l-3.5 -4.5" /></svg>
           WASAPI Loopback Audio
         </span>
         <span class="chip">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" /></svg>
-          Tabler Icons
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0z" /></svg>
+          Ringan &amp; Zero Bloat
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17.8 20l-12 -1.5c-1 -.1 -1.8 -.9 -1.8 -1.9v-9.2c0 -1 .8 -1.8 1.8 -1.9l12 -1.5c1.2 -.1 2.2 .8 2.2 1.9v12.2c0 1.2 -1 2.1 -2.2 1.9z" /><path d="M12 5l0 14" /><path d="M4 12l16 0" /></svg>
+          Windows 10 | 11 Native
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M14 6l7 7l-4 4" /><path d="M5.828 18.172a2.828 2.828 0 0 0 4 0l10.172 -10.172a2.828 2.828 0 0 0 0 -4l-2.172 -2.172a2.828 2.828 0 0 0 -4 0l-10.172 10.172a2.828 2.828 0 0 0 0 4l2.172 2.172z" /></svg>
+          Transisi Cut &amp; Fade Mulus
         </span>
       </div>
     </section>
@@ -498,7 +478,7 @@
         <a href="https://github.com/nexora-ctrl/nexora-studio" target="_blank" rel="noopener">GitHub</a>
         <a href="#top">Kembali ke Atas ↑</a>
       </div>
-      <span>&copy; 2026 NEXORA Studio &middot; Built with Rust &amp; Dedication</span>
+      <span>&copy; 2026 NEXORA Studio &middot; Built with Passion &amp; Dedication</span>
     </div>
   </footer>
 
@@ -510,7 +490,79 @@
     (function () {
       "use strict";
 
+      var root = document.documentElement;
       var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      /* ============ THEME TOGGLE ============ */
+      var themeMeta = document.getElementById("themeColor");
+      var themeColors = { dark: "#070c18", light: "#f4f7fc" };
+      var toggle = document.getElementById("themeToggle");
+
+      var stored = null;
+      try { stored = localStorage.getItem("nexora-theme"); } catch (e) {}
+      var explicit = (stored === "light" || stored === "dark");
+
+      var forced = null;
+      try {
+        var q = new URLSearchParams(window.location.search).get("theme");
+        if (q === "light" || q === "dark") forced = q;
+      } catch (e) {}
+
+      /* Studio screenshot view switcher */
+      var btnDark = document.getElementById("btnStudioDark");
+      var btnLight = document.getElementById("btnStudioLight");
+      var view = document.getElementById("studioScreenshotView");
+
+      function setStudioScreenshot(mode) {
+        if (!view) return;
+        view.setAttribute("data-active-screenshot", mode);
+        if (btnDark) btnDark.classList.toggle("active", mode === "dark");
+        if (btnLight) btnLight.classList.toggle("active", mode === "light");
+      }
+
+      if (btnDark && btnLight) {
+        btnDark.addEventListener("click", function () { setStudioScreenshot("dark"); });
+        btnLight.addEventListener("click", function () { setStudioScreenshot("light"); });
+      }
+
+      function applyTheme(theme, animate) {
+        root.setAttribute("data-theme", theme);
+        setStudioScreenshot(theme === "light" ? "light" : "dark");
+        if (themeMeta) themeMeta.setAttribute("content", themeColors[theme] || themeColors.dark);
+        if (toggle) {
+          toggle.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
+          toggle.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+          toggle.setAttribute("title", theme === "dark" ? "Mode terang" : "Mode gelap");
+        }
+        if (!forced) {
+          try { localStorage.setItem("nexora-theme", theme); } catch (e) {}
+        }
+        if (animate && !reduceMotion) {
+          root.classList.add("theme-anim");
+          window.setTimeout(function () {
+            root.classList.remove("theme-anim");
+          }, 520);
+        }
+      }
+
+      applyTheme(root.getAttribute("data-theme") || "dark", false);
+
+      if (toggle) {
+        toggle.addEventListener("click", function () {
+          explicit = true;
+          applyTheme(root.getAttribute("data-theme") === "dark" ? "light" : "dark", true);
+        });
+      }
+
+      /* Mobile menu toggle */
+      var menuToggle = document.getElementById("menuToggle");
+      var nav = document.getElementById("nav");
+      if (menuToggle && nav) {
+        menuToggle.addEventListener("click", function () {
+          var open = nav.classList.toggle("open");
+          menuToggle.setAttribute("aria-expanded", open ? "true" : "false");
+        });
+      }
 
       /* Header state on scroll */
       var header = document.getElementById("header");
@@ -539,7 +591,6 @@
 
       /* Cursor spotlight (desktop only) */
       if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
-        var root = document.documentElement;
         var mx = 0, my = 0, queued = false;
 
         var paint = function () {

@@ -45,10 +45,12 @@
   font-weight: 900;
   letter-spacing: -0.025em;
   line-height: 1.05;
-  background: var(--title-grad);
+  color: var(--ink, #eef2ff);
+  background: var(--title-grad, linear-gradient(110deg, #38bdf8 0%, #3b82f6 40%, #1d4ed8 75%, #0f2b6b 100%));
+  background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
+  -webkit-text-fill-color: transparent;
 }
 
 .finder-hero .tagline {
@@ -373,5 +375,192 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.gallery-card-caption strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ============ LIGHT MODE REFINEMENTS ============ */
+:root[data-theme="light"] .spotlight-mockup {
+  background: #ffffff;
+  border: 1px solid rgba(219, 229, 242, 0.95);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03), 0 24px 64px -18px rgba(15, 35, 75, 0.10), inset 0 1px 0 #ffffff;
+}
+
+:root[data-theme="light"] .spotlight-searchbar {
+  background: #ffffff;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.90);
+}
+
+:root[data-theme="light"] .spotlight-drive-select {
+  background: #f8fafc;
+  border: 1px solid rgba(203, 213, 225, 0.85);
+  color: #0284c7;
+}
+
+:root[data-theme="light"] .spotlight-item {
+  border-bottom: 1px solid rgba(226, 232, 240, 0.70);
+}
+
+:root[data-theme="light"] .scat-chip {
+  background: #f8fafc;
+  border: 1px solid rgba(226, 232, 240, 0.90);
+}
+
+:root[data-theme="light"] .scat-chip.active {
+  background: rgba(2, 132, 199, 0.10);
+  border-color: rgba(2, 132, 199, 0.35);
+  color: var(--cyan);
+}
+
+:root[data-theme="light"] .spotlight-item.highlighted {
+  background: rgba(2, 132, 199, 0.06);
+}
+
+:root[data-theme="light"] .spotlight-item-icon.exe {
+  background: rgba(2, 132, 199, 0.10);
+  color: #0284c7;
+  border-color: rgba(2, 132, 199, 0.25);
+}
+
+:root[data-theme="light"] .spotlight-item-icon.code {
+  background: rgba(234, 88, 12, 0.10);
+  color: #c2410c;
+  border-color: rgba(234, 88, 12, 0.25);
+}
+
+:root[data-theme="light"] .spotlight-item-icon.img {
+  background: rgba(124, 58, 237, 0.10);
+  color: #7c3aed;
+  border-color: rgba(124, 58, 237, 0.25);
+}
+
+:root[data-theme="light"] .spotlight-item-icon.db {
+  background: rgba(5, 150, 105, 0.10);
+  color: #047857;
+  border-color: rgba(5, 150, 105, 0.25);
+}
+
+:root[data-theme="light"] .spotlight-item-title em {
+  color: #0284c7;
+  background: rgba(2, 132, 199, 0.10);
+}
+
+:root[data-theme="light"] .gallery-card {
+  background: linear-gradient(180deg, #ffffff 0%, #f8faff 100%);
+  border: 1px solid rgba(219, 229, 242, 0.95);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03), 0 16px 40px -16px rgba(15, 35, 75, 0.08), inset 0 1px 0 #ffffff;
+}
+
+/* ============ MOBILE RESPONSIVE ============ */
+@media (max-width: 680px) {
+  .finder-hero {
+    padding: 86px 16px 36px;
+  }
+
+  .finder-app-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 22px;
+    margin-bottom: 16px;
+  }
+
+  .finder-hero h1 {
+    font-size: clamp(2.2rem, 9vw, 3.2rem);
+  }
+
+  .finder-hero .tagline {
+    font-size: 0.98rem;
+    margin-top: 12px;
+  }
+
+  .spotlight-mockup {
+    border-radius: 16px;
+    margin-top: 24px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .spotlight-searchbar {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .spotlight-search-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .spotlight-input-visual {
+    font-size: 1rem;
+  }
+
+  .spotlight-drive-select {
+    padding: 3px 8px;
+    font-size: 0.7rem;
+  }
+
+  .spotlight-categories {
+    padding: 8px 12px;
+    gap: 6px;
+    overflow-x: auto;
+  }
+
+  .scat-chip {
+    padding: 4px 10px;
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+
+  .spotlight-item {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .spotlight-item-meta {
+    gap: 6px;
+    font-size: 0.68rem;
+  }
+
+  .spotlight-item-meta .tag {
+    display: none;
+  }
+
+  .spotlight-footer {
+    padding: 10px 14px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .spotlight-footer-keys {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    width: 100%;
+  }
+
+  .gallery-section {
+    margin-top: 36px;
+  }
+
+  .gallery-tabs {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+  }
+
+  .gallery-tab-btn {
+    flex: 1;
+    padding: 8px 10px;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+
+  .gallery-card {
+    border-radius: 14px;
+  }
 }
 

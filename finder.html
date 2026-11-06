@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nexora Finder — Pencarian Berkas &amp; Folder Instan Super Cepat untuk Windows</title>
 
-  <meta name="description" content="Nexora Finder adalah aplikasi desktop pencarian berkas dan folder super cepat untuk Windows berkinerja tinggi, bertenaga Rust, mesin indeks Tantivy (< 1 ms), dan antarmuka modern Tauri + React bergaya macOS Spotlight." />
-  <meta name="theme-color" content="#060814" id="themeColor" />
+  <meta name="description" content="Nexora Finder adalah aplikasi desktop pencarian berkas dan folder super cepat untuk Windows berkinerja tinggi dengan antarmuka mengambang modern bergaya Spotlight (< 1 ms)." />
+  <meta name="theme-color" content="#070c18" id="themeColor" />
   <meta name="color-scheme" content="dark light" />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Nexora Finder — Instant File &amp; Folder Search for Windows" />
-  <meta property="og:description" content="Pencarian berkas &amp; folder instan berkecepatan tinggi (< 1 ms) bertenaga Rust, Tantivy, dan Tauri 2.0." />
+  <meta property="og:description" content="Pencarian berkas &amp; folder instan berkecepatan tinggi (< 1 ms) untuk Windows 10 &amp; 11." />
   <meta property="og:url" content="https://nexora-ctrl.github.io/finder.html" />
 
   <!-- Favicon -->
@@ -109,10 +109,10 @@
 
       <div class="badges-row reveal" style="--d: 80ms">
         <span class="meta-pill"><span class="pill-dot"></span>Pencarian &lt; 1 ms</span>
-        <span class="meta-pill rust"><span class="pill-dot"></span>Rust + Tauri 2.0</span>
-        <span class="meta-pill" style="border-color: rgba(56, 189, 248, 0.4);"><span class="pill-dot" style="background:#38bdf8; box-shadow:0 0 8px #38bdf8;"></span>Tantivy Engine</span>
+        <span class="meta-pill"><span class="pill-dot"></span>Spotlight Mengambang</span>
+        <span class="meta-pill"><span class="pill-dot"></span>List &amp; Grid View</span>
         <span class="meta-pill win"><span class="pill-dot"></span>Windows 10 | 11</span>
-        <span class="meta-pill license"><span class="pill-dot"></span>MIT License</span>
+        <span class="meta-pill license"><span class="pill-dot"></span>Open Source (MIT)</span>
       </div>
 
       <h1 class="reveal" style="--d: 140ms">Nexora Finder</h1>
@@ -122,7 +122,7 @@
       </p>
 
       <p class="lead reveal" style="--d: 260ms">
-        Dibangun dengan performa native <strong>Rust</strong>, mesin pencari teks penuh <strong>Tantivy</strong> yang terinspirasi dari Apache Lucene, serta antarmuka modern <strong>Tauri 2.0 + React 19</strong> bergaya macOS Spotlight. Mampu mencari jutaan berkas dalam hitungan milidetik tanpa membebani memori PC Anda.
+        Aplikasi pencarian desktop native Windows dengan responsivitas instan dan antarmuka mengambang elegan bergaya Spotlight. Mampu menemukan jutaan berkas dalam hitungan milidetik tanpa membebani memori dan kinerja komputer Anda.
       </p>
 
       <div class="actions reveal" style="--d: 320ms">
@@ -179,7 +179,7 @@
         <!-- Meta status banner -->
         <div class="spotlight-meta-banner">
           <span>Menemukan <strong>1.482 berkas</strong> dalam <strong>0.38 ms</strong></span>
-          <span style="color: #10b981; font-weight: 600;">● Indeks Tantivy Aktif</span>
+          <span style="color: #10b981; font-weight: 600;">● Indeks Pencarian Aktif</span>
         </div>
 
         <!-- Results List -->
@@ -190,7 +190,7 @@
               <div class="spotlight-item-icon exe">EXE</div>
               <div class="spotlight-item-info">
                 <div class="spotlight-item-title"><em>proyek-nexora</em>-finder.exe</div>
-                <div class="spotlight-item-path">D:\Rust\Nexora Finder\src-tauri\target\release</div>
+                <div class="spotlight-item-path">C:\Program Files\Nexora Finder</div>
               </div>
             </div>
             <div class="spotlight-item-meta">
@@ -202,14 +202,14 @@
           <!-- Item 2 -->
           <div class="spotlight-item">
             <div class="spotlight-item-main">
-              <div class="spotlight-item-icon code">RS</div>
+              <div class="spotlight-item-icon code">PDF</div>
               <div class="spotlight-item-info">
-                <div class="spotlight-item-title">main.rs — <em>proyek-nexora</em> engine</div>
-                <div class="spotlight-item-path">D:\Rust\Nexora Finder\src-tauri\src\main.rs</div>
+                <div class="spotlight-item-title">laporan-<em>proyek-nexora</em>-tahunan.pdf</div>
+                <div class="spotlight-item-path">D:\Dokumen\Pekerjaan 2026\Laporan</div>
               </div>
             </div>
             <div class="spotlight-item-meta">
-              <span>8.6 KB</span>
+              <span>2.4 MB</span>
               <span>Kemarin</span>
             </div>
           </div>
@@ -219,12 +219,12 @@
             <div class="spotlight-item-main">
               <div class="spotlight-item-icon img">JPG</div>
               <div class="spotlight-item-info">
-                <div class="spotlight-item-title">preview-grid.jpg — screenshot UI</div>
-                <div class="spotlight-item-path">D:\Rust\Nexora Finder\docs\screenshots</div>
+                <div class="spotlight-item-title">preview-presentasi-<em>proyek-nexora</em>.jpg</div>
+                <div class="spotlight-item-path">D:\Media\Desain Grafis\Presentasi</div>
               </div>
             </div>
             <div class="spotlight-item-meta">
-              <span>80.2 KB</span>
+              <span>840 KB</span>
               <span>3 hari lalu</span>
             </div>
           </div>
@@ -232,14 +232,14 @@
           <!-- Item 4 -->
           <div class="spotlight-item">
             <div class="spotlight-item-main">
-              <div class="spotlight-item-icon db">DB</div>
+              <div class="spotlight-item-icon db">ZIP</div>
               <div class="spotlight-item-info">
-                <div class="spotlight-item-title">tantivy_index.db — metadata cache</div>
-                <div class="spotlight-item-path">D:\Rust\Nexora Finder\data</div>
+                <div class="spotlight-item-title">arsip-<em>proyek-nexora</em>-final.zip</div>
+                <div class="spotlight-item-path">D:\Cadangan\Arsip 2026</div>
               </div>
             </div>
             <div class="spotlight-item-meta">
-              <span>3.4 MB</span>
+              <span>32.8 MB</span>
               <span>1 minggu lalu</span>
             </div>
           </div>
@@ -315,10 +315,10 @@
             </svg>
           </div>
           <h3>Pencarian Super Instan (&lt; 1 ms)</h3>
-          <p>Mencari di antara jutaan file tanpa jeda menggunakan mesin indeks teks penuh Tantivy yang sangat optimal.</p>
+          <p>Mencari di antara jutaan berkas tanpa jeda menggunakan sistem pengindeksan canggih berkecepatan tinggi.</p>
           <ul>
-            <li><strong>Engine Tantivy:</strong> Terinspirasi dari Apache Lucene, dioptimasi dengan efisiensi memori Rust.</li>
-            <li><strong>Database Metadata SQLite:</strong> Penyimpanan riwayat dan metadata file yang terindeks rapi.</li>
+            <li><strong>Indeks Kilat Real-Time:</strong> Struktur indeks terbalik yang sangat optimal dan instan.</li>
+            <li><strong>Penyimpanan Metadata Terpadu:</strong> Manajemen riwayat dan penelusuran berkas yang tertata rapi.</li>
             <li><strong>Zero Lag:</strong> Hasil pencarian muncul seketika saat karakter pertama diketikkan.</li>
           </ul>
         </article>
@@ -396,7 +396,7 @@
           <ul>
             <li><strong>Auto-Hide saat Enter:</strong> Menekan Enter langsung membuka file dan meminimalkan Finder.</li>
             <li><strong>Klik di Luar Jendela:</strong> Mengklik area layar lain langsung menyembunyikan jendela ke background tray.</li>
-            <li><strong>Konsumsi Memori Rendah:</strong> Arsitektur Tauri 2.0 memastikan penggunaan RAM sangat minim saat standby.</li>
+            <li><strong>Konsumsi Memori Rendah:</strong> Arsitektur hemat daya memastikan penggunaan RAM dan CPU sangat minim saat standby.</li>
           </ul>
         </article>
 
@@ -483,12 +483,12 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 9l3 3l-3 3" /><path d="M13 15l3 0" /><path d="M3 4m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /></svg>
           </div>
           <h3>1. Mode Pengembangan (Dev Mode)</h3>
-          <p>Jalankan live-reload frontend React dengan backend Rust:</p>
+          <p>Jalankan live-reload aplikasi secara lokal untuk pengujian dan kustomisasi:</p>
           
           <div class="code-block">
             <div class="code-header">
               <span>Terminal / PowerShell</span>
-              <span>Node + Cargo</span>
+              <span>Build Environment</span>
             </div>
             <pre class="code-body"><span class="comment"># Clone repositori</span>
 <span class="cmd">git clone</span> https://github.com/nexora-ctrl/nexora-finder.git
@@ -513,53 +513,53 @@
           <div class="code-block">
             <div class="code-header">
               <span>PowerShell</span>
-              <span>Tauri Production Build</span>
+              <span>Production Build</span>
             </div>
             <pre class="code-body"><span class="comment"># Build binary standalone .exe</span>
 <span class="cmd">npm run tauri build</span> -- --no-bundle</pre>
           </div>
 
           <p style="margin-top: 14px; font-size: 0.82rem; color: var(--muted-2);">
-            File executable portabel akan dihasilkan di folder <code>src-tauri/target/release/nexora-finder.exe</code> dan dapat langsung disematkan di Taskbar atau Startup Windows.
+            File executable portabel akan dihasilkan di folder rilis dan dapat langsung disematkan di Taskbar atau Startup Windows.
           </p>
         </article>
       </div>
     </section>
 
-    <!-- Tech Architecture Section -->
+    <!-- Features Architecture Section -->
     <section class="section wrap" id="arsitektur">
-      <p class="eyebrow reveal">Teknologi &amp; Arsitektur</p>
+      <p class="eyebrow reveal">Keunggulan Fitur</p>
       <h2 class="reveal" style="--d: 70ms">
-        Pondasi <em>kecepatan kilat</em>
+        Pondasi <em>kecepatan dan efisiensi</em>
       </h2>
       <p class="lead reveal" style="--d: 130ms">
-        Kombinasi teknologi modern untuk performa maksimal, konsumsi baterai rendah, dan respons instan.
+        Kombinasi kemampuan komprehensif untuk produktivitas maksimal, efisiensi memori, dan kemudahan navigasi berkas harian Anda.
       </p>
 
       <div class="chips reveal" style="--d: 200ms">
         <span class="chip">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 5m0 1a1 1 0 0 1 1 -1h12a1 1 0 0 1 1 1v12a1 1 0 0 1 -1 1h-12a1 1 0 0 1 -1 -1z" /><path d="M9 9h6v6h-6z" /></svg>
-          Rust Backend (Win32 API)
-        </span>
-        <span class="chip">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 3l0 7l6 0l-8 11l0 -7l-6 0z" /></svg>
-          Tantivy Search Engine
+          Pencarian Cepat &lt; 1 ms
         </span>
         <span class="chip">
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 5m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" /><path d="M6 8h.01" /><path d="M9 8h.01" /></svg>
-          Tauri 2.0
+          Spotlight Mengambang
         </span>
         <span class="chip">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6.306 8.711c-1.257 3.551 -.75 6.423 .908 6.423c3.48 0 7.85 -7.423 9.47 -7.423c1.62 0 2.158 2.872 .902 6.423" /><path d="M17.694 8.711c1.257 3.551 .75 6.423 -.908 6.423c-3.48 0 -7.85 -7.423 -9.47 -7.423c-1.62 0 -2.158 2.872 -.902 6.423" /></svg>
-          React 19 + TypeScript
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 4h6v6h-6z" /><path d="M14 4h6v6h-6z" /><path d="M4 14h6v6h-6z" /><path d="M14 14h6v6h-6z" /></svg>
+          8 Kategori Berkas
         </span>
         <span class="chip">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 3c-4.97 0 -9 1.79 -9 4v10c0 2.21 4.03 4 9 4s9 -1.79 9 -4v-10c0 -2.21 -4.03 -4 -9 -4z" /><path d="M3 11c0 2.21 4.03 4 9 4s9 -1.79 9 -4" /></svg>
-          SQLite Metadata
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 4h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2z" /><path d="M6 12h12" /></svg>
+          Filter Drive &amp; Partisi
         </span>
         <span class="chip">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M16 18a2 2 0 0 1 2 2a2 2 0 0 1 2 -2a2 2 0 0 1 -2 -2a2 2 0 0 1 -2 2z" /><path d="M9 12a6 6 0 0 1 6 -6a6 6 0 0 1 -6 -6a6 6 0 0 1 -6 6a6 6 0 0 1 6 6z" /></svg>
-          Lucide &amp; Tabler Icons
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M13 13l6 6" /><path d="M14.5 10.5l-2.5 2.5" /><path d="M3 3l18 18" /><path d="M6 18h12a2 2 0 0 0 2 -2v-12" /></svg>
+          Integrasi Windows Explorer
+        </span>
+        <span class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 4h14a1 1 0 0 1 1 1v5a1 1 0 0 1 -1 1h-14a1 1 0 0 1 -1 -1v-5a1 1 0 0 1 1 -1z" /><path d="M4 14h16" /><path d="M4 18h16" /></svg>
+          Pintasan Hotkey Global
         </span>
       </div>
     </section>
@@ -598,7 +598,7 @@
         <a href="https://github.com/nexora-ctrl/nexora-finder" target="_blank" rel="noopener">GitHub</a>
         <a href="#top">Kembali ke Atas ↑</a>
       </div>
-      <span>&copy; 2026 NEXORA &middot; Built with Rust, Tantivy &amp; Tauri</span>
+      <span>&copy; 2026 NEXORA &middot; Built with Passion &amp; Dedication</span>
     </div>
   </footer>
 
@@ -615,7 +615,7 @@
 
       /* ============ THEME TOGGLE ============ */
       var themeMeta = document.getElementById("themeColor");
-      var themeColors = { dark: "#060814", light: "#f3f5fc" };
+      var themeColors = { dark: "#070c18", light: "#f4f7fc" };
       var toggle = document.getElementById("themeToggle");
 
       var stored = null;
