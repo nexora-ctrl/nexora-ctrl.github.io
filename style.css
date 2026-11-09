@@ -1038,6 +1038,267 @@ img { max-width: 100%; }
   color: var(--muted);
 }
 
+/* ============ INDIVIDUALIZED CRAFT CARDS (Bespoke Palette & Shapes) ============ */
+.cards-craft {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.card-craft {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-radius: 20px;
+  padding: 28px 24px 24px;
+}
+
+.card-craft .card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.card-craft .icon {
+  margin-bottom: 0;
+}
+
+.card-craft .card-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  transition: all 0.3s var(--ease);
+}
+
+.card-craft .card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 20px;
+  font-size: 0.76rem;
+  color: var(--muted-2);
+  letter-spacing: 0.02em;
+}
+
+.card-craft .card-meta .meta-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* 1. Applications: Indigo / Sapphire */
+.card-apps {
+  --accent-base: #3b82f6;
+  border-top: 2px solid #3b82f6;
+}
+.card-apps .icon {
+  background: rgba(59, 130, 246, 0.12);
+  border-color: rgba(59, 130, 246, 0.28);
+  color: #60a5fa;
+}
+.card-apps .card-tag {
+  background: rgba(59, 130, 246, 0.10);
+  color: #93c5fd;
+  border: 1px solid rgba(59, 130, 246, 0.22);
+}
+.card-apps .meta-dot { background: #3b82f6; box-shadow: 0 0 8px #3b82f6; }
+.card-apps::before {
+  background: linear-gradient(135deg, #60a5fa, #2563eb 50%, #1e40af);
+}
+.card-apps::after {
+  background: radial-gradient(280px circle at var(--cx, 50%) var(--cy, 0%), rgba(59, 130, 246, 0.22), transparent 70%);
+}
+
+/* 2. Developer Tools: Emerald / Mint */
+.card-tools {
+  --accent-base: #10b981;
+  border-top: 2px solid #10b981;
+}
+.card-tools .icon {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: rgba(16, 185, 129, 0.28);
+  color: #34d399;
+}
+.card-tools .card-tag {
+  background: rgba(16, 185, 129, 0.10);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.22);
+}
+.card-tools .meta-dot { background: #10b981; box-shadow: 0 0 8px #10b981; }
+.card-tools::before {
+  background: linear-gradient(135deg, #34d399, #059669 50%, #047857);
+}
+.card-tools::after {
+  background: radial-gradient(280px circle at var(--cx, 50%) var(--cy, 0%), rgba(16, 185, 129, 0.22), transparent 70%);
+}
+.card-tools:hover .icon {
+  box-shadow: 0 12px 26px -14px rgba(16, 185, 129, 0.9);
+}
+
+/* 3. Web Projects: Cyan / Sky */
+.card-web {
+  --accent-base: #06b6d4;
+  border-top: 2px solid #06b6d4;
+}
+.card-web .icon {
+  background: rgba(6, 182, 212, 0.12);
+  border-color: rgba(6, 182, 212, 0.28);
+  color: #22d3ee;
+}
+.card-web .card-tag {
+  background: rgba(6, 182, 212, 0.10);
+  color: #67e8f9;
+  border: 1px solid rgba(6, 182, 212, 0.22);
+}
+.card-web .meta-dot { background: #06b6d4; box-shadow: 0 0 8px #06b6d4; }
+.card-web::before {
+  background: linear-gradient(135deg, #22d3ee, #0891b2 50%, #0e7490);
+}
+.card-web::after {
+  background: radial-gradient(280px circle at var(--cx, 50%) var(--cy, 0%), rgba(6, 182, 212, 0.22), transparent 70%);
+}
+.card-web:hover .icon {
+  box-shadow: 0 12px 26px -14px rgba(6, 182, 212, 0.9);
+}
+
+/* 4. Experiments: Amber / Coral Flame */
+.card-exp {
+  --accent-base: #f59e0b;
+  border-top: 2px solid #f59e0b;
+}
+.card-exp .icon {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.28);
+  color: #fbbf24;
+}
+.card-exp .card-tag {
+  background: rgba(245, 158, 11, 0.10);
+  color: #fcd34d;
+  border: 1px solid rgba(245, 158, 11, 0.22);
+}
+.card-exp .meta-dot { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
+.card-exp::before {
+  background: linear-gradient(135deg, #fbbf24, #d97706 50%, #b45309);
+}
+.card-exp::after {
+  background: radial-gradient(280px circle at var(--cx, 50%) var(--cy, 0%), rgba(245, 158, 11, 0.22), transparent 70%);
+}
+.card-exp:hover .icon {
+  box-shadow: 0 12px 26px -14px rgba(245, 158, 11, 0.9);
+}
+
+/* 5. Creative Projects: Violet / Magenta */
+.card-creative {
+  --accent-base: #8b5cf6;
+  border-top: 2px solid #8b5cf6;
+}
+.card-creative .icon {
+  background: rgba(139, 92, 246, 0.12);
+  border-color: rgba(139, 92, 246, 0.28);
+  color: #a78bfa;
+}
+.card-creative .card-tag {
+  background: rgba(139, 92, 246, 0.10);
+  color: #c4b5fd;
+  border: 1px solid rgba(139, 92, 246, 0.22);
+}
+.card-creative .meta-dot { background: #8b5cf6; box-shadow: 0 0 8px #8b5cf6; }
+.card-creative::before {
+  background: linear-gradient(135deg, #a78bfa, #7c3aed 50%, #5b21b6);
+}
+.card-creative::after {
+  background: radial-gradient(280px circle at var(--cx, 50%) var(--cy, 0%), rgba(139, 92, 246, 0.22), transparent 70%);
+}
+.card-creative:hover .icon {
+  box-shadow: 0 12px 26px -14px rgba(139, 92, 246, 0.9);
+}
+
+/* Light Mode Overrides for Craft Cards: distinct natural pastel surfaces */
+:root[data-theme="light"] .card-apps {
+  background: linear-gradient(180deg, #ffffff 0%, #f4f8ff 100%);
+  border-color: rgba(59, 130, 246, 0.20);
+  border-top: 3px solid #2563eb;
+}
+:root[data-theme="light"] .card-apps .icon {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+:root[data-theme="light"] .card-apps .card-tag {
+  background: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+
+:root[data-theme="light"] .card-tools {
+  background: linear-gradient(180deg, #ffffff 0%, #f2fbf7 100%);
+  border-color: rgba(16, 185, 129, 0.20);
+  border-top: 3px solid #059669;
+}
+:root[data-theme="light"] .card-tools .icon {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #047857;
+}
+:root[data-theme="light"] .card-tools .card-tag {
+  background: #ecfdf5;
+  color: #047857;
+  border-color: #a7f3d0;
+}
+
+:root[data-theme="light"] .card-web {
+  background: linear-gradient(180deg, #ffffff 0%, #f0fdfa 100%);
+  border-color: rgba(6, 182, 212, 0.20);
+  border-top: 3px solid #0891b2;
+}
+:root[data-theme="light"] .card-web .icon {
+  background: #ecfeff;
+  border-color: #a5f3fc;
+  color: #0e7490;
+}
+:root[data-theme="light"] .card-web .card-tag {
+  background: #ecfeff;
+  color: #0e7490;
+  border-color: #a5f3fc;
+}
+
+:root[data-theme="light"] .card-exp {
+  background: linear-gradient(180deg, #ffffff 0%, #fffbeb 100%);
+  border-color: rgba(245, 158, 11, 0.20);
+  border-top: 3px solid #d97706;
+}
+:root[data-theme="light"] .card-exp .icon {
+  background: #fffbeb;
+  border-color: #fde68a;
+  color: #b45309;
+}
+:root[data-theme="light"] .card-exp .card-tag {
+  background: #fffbeb;
+  color: #b45309;
+  border-color: #fde68a;
+}
+
+:root[data-theme="light"] .card-creative {
+  background: linear-gradient(180deg, #ffffff 0%, #faf5ff 100%);
+  border-color: rgba(139, 92, 246, 0.20);
+  border-top: 3px solid #7c3aed;
+}
+:root[data-theme="light"] .card-creative .icon {
+  background: #f5f3ff;
+  border-color: #ddd6fe;
+  color: #6d28d9;
+}
+:root[data-theme="light"] .card-creative .card-tag {
+  background: #f5f3ff;
+  color: #6d28d9;
+  border-color: #ddd6fe;
+}
+
+
 /* ============ FEATURED PROJECT ============ */
 .feature {
   position: relative;
